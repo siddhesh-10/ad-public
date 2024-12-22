@@ -43,6 +43,7 @@
     font-size: 1.2rem;
     font-weight: 700;
     background: linear-gradient(90deg, #6A0DAD, #9C27B0);
+    // background-color: #f2db5a;
     border: none;
     color: #FFFFFF;
     border-radius: 5px;
@@ -53,7 +54,7 @@
 
 .cta-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0px 6px 20px rgba(154, 39, 176, 0.6);
+    box-shadow: 0px 6px 20px rgba(176, 165, 39, 0.6);
 }
 
 /* Keyframe for fade-in effect */
@@ -67,3 +68,17 @@
         transform: translateY(0);
     }
 }
+
+.wave-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+  }
+  
+  .wave-container svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }

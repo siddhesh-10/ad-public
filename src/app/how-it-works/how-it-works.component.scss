@@ -1,64 +1,230 @@
-.how-it-works {
-    background-color: #121212;
-    position: relative;
-    overflow: hidden;
-    padding: 80px 20px;
-    text-align: center;
-    font-family: "Oswald", serif;
-}
-.how-it-works h2 {
-    font-size: 2.5rem;
-    color: #8A2BE2;
-    margin-bottom: 40px;
-}
-.flow-container {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 40px;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-.flow-step {
-    background: linear-gradient(145deg, #2A2A44, #000000);
-    padding: 30px;
-    border-radius: 20px;
-    width: 300px;
-    height: 250px;
-    color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
-    transition: transform 0.5s, box-shadow 0.5s;
-    opacity: 1;
-    z-index:5;
+// .how-it-works {
+//     background-color: #121212;
+//     position: relative;
+//     overflow: hidden;
+//     padding: 80px 20px;
+//     text-align: center;
+//     font-family: "Oswald", serif;
+// }
+// .how-it-works h2 {
+//     font-size: 2.5rem;
+//     color: #8A2BE2;
+//     margin-bottom: 40px;
+// }
+// .flow-container {
+//     display: flex;
+//     flex-wrap: nowrap;
+//     gap: 40px;
+//     justify-content: center;
+//     align-items: center;
+//     position: relative;
+// }
+// .flow-step {
+//     background: linear-gradient(145deg, #2A2A44, #000000);
+//     padding: 30px;
+//     border-radius: 20px;
+//     width: 300px;
+//     height: 250px;
+//     color: #FFFFFF;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+//     transition: transform 0.5s, box-shadow 0.5s;
+//     opacity: 1;
+//     z-index:5;
 
+// }
+// .flow-step:hover {
+//     transform: translateY(-15px) scale(1.05);
+//     box-shadow: 0px 20px 40px rgba(138, 43, 226, 0.7);
+// }
+// .flow-step h3 {
+//     color: #8A2BE2;
+//     margin-bottom: 15px;
+//     font-size: 1.5rem;
+// }
+// .flow-step p {
+//     font-size: 1rem;
+//     text-align: center;
+// }
+// .flow-connector {
+//     position: absolute;
+//     height: 5px;
+//     background: linear-gradient(90deg, #6A0DAD, #8A2BE2);
+//     width: calc(100% - 60px);
+//     left: 30px;
+//     top: 50%;
+//     z-index: 2;
+// }
+// @keyframes fadeIn {
+//     from { opacity: 0; transform: translateY(20px); }
+//     to { opacity: 1; transform: translateY(0); }
+// }
+
+
+////
+/// 
+/// 
+/// 
+/// 
+
+
+
+// .how-it-works {
+//     background-color: #121212;
+//     color: white;
+//     padding: 80px 20px;
+//     position: relative;
+//     overflow: hidden;
+//   }
+  
+//   .cards-container {
+//     position: relative;
+//     perspective: 1000px;
+//     height: 600px;
+//   }
+  
+  // .card {
+  //   // position: absolute;
+  //   // top: 50%;
+  //   // left: 50%;
+  //   width: 300px;
+  //   height: 250px;
+  //   // transform-origin: center;
+  //   transform-style: preserve-3d;
+  //   background: linear-gradient(145deg, #2a2a44, #000000);
+  //   border-radius: 20px;
+  //   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   justify-content: center;
+  //   text-align: center;
+  //   // transition: transform 0.3s ease-out, z-index 0.3s ease-out;
+  //   opacity: 0.9;
+  // }
+  
+//   .card-content h3 {
+//     color: #8a2be2;
+//     margin-bottom: 15px;
+//     font-size: 1.5rem;
+//   }
+  
+//   .card-content p {
+//     font-size: 1rem;
+//   }
+  
+//   .card:nth-child(even) {
+//     transform: rotateY(5deg);
+//   }
+  
+//   .card:nth-child(odd) {
+//     transform: rotateY(-5deg);
+//   }
+  
+  
+//   .flow-step p {
+//     font-size: 1rem;
+//     text-align: center;
+//   }
+  
+/* Container for the cards section */
+.how-it-works {
+  height: 500px; /* Adjust the height of the section */
+  overflow: hidden; /* Hide anything outside the section */
+  padding: 20px;
+  background-color: #1E1E2C;
+  color: #FFFFFF;
+  position: relative;
 }
-.flow-step:hover {
-    transform: translateY(-15px) scale(1.05);
-    box-shadow: 0px 20px 40px rgba(138, 43, 226, 0.7);
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
 }
-.flow-step h3 {
-    color: #8A2BE2;
-    margin-bottom: 15px;
-    font-size: 1.5rem;
+.cards-container {
+  display: flex;
+  flex-direction: column; /* Stack the cards vertically */
+  gap: 10px; /* Adjust space between cards */
+  position: relative;
+  justify-content: center;
+  align-items: center;
 }
-.flow-step p {
-    font-size: 1rem;
-    text-align: center;
+
+/* Each card wrapper contains both the card content and the gif */
+.card-wrapper {
+  display: flex;
+  justify-content: space-between; /* Space between the card and gif */
+  width: 100%;
+  max-width: 100%; /* Ensure full width of the container */
+  align-items: center;
 }
-.flow-connector {
-    position: absolute;
-    height: 5px;
-    background: linear-gradient(90deg, #6A0DAD, #8A2BE2);
-    width: calc(100% - 60px);
-    left: 30px;
-    top: 50%;
-    z-index: 2;
+
+/* Card styling */
+.card-gsap {
+  opacity: 0; /* Cards are hidden initially */
+  transform: translateY(150px); /* Cards start 150px lower */
+  position: relative;
+  width: 50%; /* Card takes 50% width of the container on large screens */
+  color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.7s ease-in-out;
+  background: #29293D;
+  border: 1px solid #6A0DAD;
+  border-radius: 10px;
 }
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+
+/* Hover effect for cards */
+.card-gsap:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(106, 13, 173, 0.5);
+}
+
+/* GIF section styling */
+.card-gif {
+  position: absolute;
+  top: 0;
+  right: 0; /* Position the GIF to the right side */
+  width: 40vw; /* GIF takes up 40% of the viewport width */
+  height: 100%; /* Ensure it takes full height */
+  display: block; /* Make sure it's visible */
+}
+
+/* GIF image styling */
+.card-gif img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the GIF covers the space well */
+  border-radius: 10px;
+}
+
+/* Media query for smaller devices */
+@media (max-width: 120px) {
+  .card-wrapper {
+    flex-direction: column; /* Stack the card and GIF vertically on small screens */
+    align-items: center; /* Center the content */
+  }
+
+  .card-gsap {
+    width: 80vw; /* On small devices, card takes 80% of the viewport width */
+  }
+
+  .card-gif {
+    display: none; /* Hide the GIF on small devices */
+  }
+}
+.card-content h3 {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.card-content p {
+  font-size: 1em;
+  color: #555;
 }

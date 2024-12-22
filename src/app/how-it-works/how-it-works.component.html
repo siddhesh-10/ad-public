@@ -1,24 +1,21 @@
 <section class="how-it-works">
-    <h2>How Our Platform Works</h2>
-    <div class="flow-container">
-        <div class="flow-step" style="animation: fadeIn 1s forwards; animation-delay: 0.5s;">
-            <h3>Register & Build Profile</h3>
-            <p>Add your social profiles, ad preferences, and availability.</p>
-        </div>
-        <div class="flow-connector"></div>
-        <div class="flow-step" style="animation: fadeIn 1s forwards; animation-delay: 1.5s;">
-            <h3>Explore Ads</h3>
-            <p>View available ad opportunities tailored to your preferences.</p>
-        </div>
-        <div class="flow-connector"></div>
-        <div class="flow-step" style="animation: fadeIn 1s forwards; animation-delay: 2.5s;">
-            <h3>Apply & Collaborate</h3>
-            <p>Submit applications and create content for selected ads.</p>
-        </div>
-        <div class="flow-connector"></div>
-        <div class="flow-step" style="animation: fadeIn 1s forwards; animation-delay: 3.5s;">
-            <h3>Publish & Earn</h3>
-            <p>Get ad owner approval and share campaigns on your socials.</p>
-        </div>
-    </div>
-</section>
+    <h2 class="section-title">How Our Platform Works</h2>
+    
+    <div class="cards-container">
+        <div *ngFor="let step of flowSteps; let i = index" class="card-wrapper">
+          <div class="card-gsap" [attr.id]="'card-' + i">
+            <div class="card-content">
+              <h3>{{ step.title }}</h3>
+              <p>{{ step.description }}</p>
+            </div>
+          </div>          
+        </div>        
+      </div>
+      <div class="card-gif">
+        <img src="speaker.gif" alt="gif" />
+      </div>
+  </section>
+
+
+   
+  

@@ -13,10 +13,14 @@ export class HeroComponent {
       el: '#hero',  // Target the element with this id
       backgroundColor: 0x1e1e2c,
       color1: 0x9c27b0,
-      color2: 0x6a0dad,
-      birdSize: 0.5,
-      speedLimit: 3,
-      separation: 1000,
+      color2:0xffd800,
+      scale: 1.00,
+  scaleMobile: 1.00,
+  colorMode: "variance",
+  birdSize: 1.20,
+  wingSpan: 26.00,
+  speedLimit: 6.00,
+  separation: 65.00
     });
   }
 }
