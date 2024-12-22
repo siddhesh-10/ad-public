@@ -1,0 +1,43 @@
+
+/* Keyframe for fade-in effect */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.slide-left {
+    animation: slideLeftAnimation both;
+    animation-timeline: view();
+  }
+  
+  @keyframes slideLeftAnimation {
+    0% {
+      transform: translateX(1000px);
+    }
+  
+    50% {
+      transform: translateX(0px);
+    }
+  }
+  
+  .slide-right {
+    animation: slideRightAnimation both;
+    animation-timeline: view();
+  }
+  
+  @keyframes slideRightAnimation {
+    0% {
+      transform: translateX(-1000px);
+    }
+  
+    50% {
+      transform: translateX(0px);
+    }
+  }
