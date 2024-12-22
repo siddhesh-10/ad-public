@@ -12,6 +12,7 @@
 }
 
 
+
 .slide-left {
     animation: slideLeftAnimation both;
     animation-timeline: view();
@@ -40,4 +41,8 @@
     50% {
       transform: translateX(0px);
     }
+  }
+
+  .how-it-works-container {
+    background-color: #121212;
   }
