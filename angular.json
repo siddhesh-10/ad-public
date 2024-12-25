@@ -1,3 +1,4 @@
+
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
@@ -34,7 +35,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              
+            ]
           },
           "configurations": {
             "production": {
@@ -55,7 +58,13 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -95,6 +104,12 @@
             ],
             "scripts": []
           }
+        },
+        "scripts": {
+          "start:dev": "ng serve --configuration=development",
+          "start:prod": "ng serve --configuration=production",
+          "build:dev": "ng build --configuration=development",
+          "build:prod": "ng build --configuration=production"
         }
       }
     }

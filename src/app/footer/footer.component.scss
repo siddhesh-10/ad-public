@@ -1,0 +1,64 @@
+.footer {
+  background-color: #121212;
+  padding: 2rem;
+  font-family: "Oswald", serif;
+  color: white;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-section {
+  text-align: center;
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #8A2BE2;
+  }
+}
+
+.social-links {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 1rem;
+
+  i {
+    font-size: 1.2rem;
+  }
+
+  &:hover {
+    color: #8A2BE2;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 1.5rem;
+  }
+
+  .social-links {
+    gap: 1rem;
+    flex-direction: column;
+  }
+
+  .social-link {
+    font-size: 0.9rem;
+  }
+}

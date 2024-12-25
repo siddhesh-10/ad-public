@@ -1,0 +1,47 @@
+<div class="waitlist-container">
+  <div *ngIf="!showSuccessPopup" class="waitlist-form slide-up">
+    <h2>Join the Waitlist</h2>
+    <form [formGroup]="waitlistForm" (ngSubmit)="onSubmit()" class="form-content">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" formControlName="name" placeholder="Enter your name" required>
+        <div *ngIf="waitlistForm.get('name')?.invalid && waitlistForm.get('name')?.touched" class="error-message">
+          <span *ngIf="waitlistForm.get('name')?.errors?.['required']">Name is required</span>
+          <span *ngIf="waitlistForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="instagram">Instagram Handle</label>
+        <input type="text" id="instagram" formControlName="instagram" placeholder="@yourusername" required>
+        <div *ngIf="waitlistForm.get('instagram')?.invalid && waitlistForm.get('instagram')?.touched" class="error-message">
+          <span *ngIf="waitlistForm.get('instagram')?.errors?.['required']">Instagram handle is required</span>
+          <span *ngIf="waitlistForm.get('instagram')?.errors?.['minlength']">Instagram handle must be at least 3 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" placeholder="Enter your email" required>
+        <div *ngIf="waitlistForm.get('email')?.invalid && waitlistForm.get('email')?.touched" class="error-message">
+          <span *ngIf="waitlistForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="waitlistForm.get('email')?.errors?.['email']">Please enter a valid email address</span>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn" [class.disabled]="!waitlistForm.valid" [disabled]="!waitlistForm.valid">Join Waitlist</button>
+    </form>
+
+    <div *ngIf="showErrorPopup" class="error-card slide-up">
+      <div class="error-icon">✗</div>
+      <h2>Error</h2>
+      <p>{{ errorMessage }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="showSuccessPopup" class="success-card slide-up">
+    <div class="success-icon">✓</div>
+    <h2>Successfully Joined!</h2>
+    <p>Thank you for joining our waitlist. We'll keep you updated!</p>
+  </div>
+</div>

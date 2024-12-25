@@ -1,4 +1,3 @@
-
 /* Keyframe for fade-in effect */
 @keyframes fadeInUp {
     from {
@@ -11,38 +10,63 @@
     }
 }
 
-
-
 .slide-left {
     animation: slideLeftAnimation both;
     animation-timeline: view();
-  }
+}
   
-  @keyframes slideLeftAnimation {
+@keyframes slideLeftAnimation {
     0% {
-      transform: translateX(1000px);
+        transform: translateX(1000px);
     }
   
     50% {
-      transform: translateX(0px);
+        transform: translateX(0px);
     }
-  }
+}
   
-  .slide-right {
+.slide-right {
     animation: slideRightAnimation both;
     animation-timeline: view();
-  }
+}
   
-  @keyframes slideRightAnimation {
+@keyframes slideRightAnimation {
     0% {
-      transform: translateX(-1000px);
+        transform: translateX(-1000px);
     }
   
     50% {
-      transform: translateX(0px);
+        transform: translateX(0px);
     }
-  }
+}
 
-  .how-it-works-container {
+.how-it-works-container {
     background-color: #121212;
-  }
+    margin: 0;
+    padding: 0;
+}
+.waitlist-container {
+    background-color: #121212;
+    margin: 0;
+    padding: 0;
+}
+
+.wave-container {
+    background-color: #121212;
+    margin: 0;
+    padding: 0;
+    padding-top: 20px;
+}
+
+// Remove default margin from root div
+:host {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+// Reset margin/padding on all divs
+div {
+    margin: 0;
+    padding: 0;
+}

@@ -19,4 +19,11 @@ export class HeroComponent {
       separation: 1000,
     });
   }
+
+  scrollToWaitlist() {
+    const waitlistElement = document.querySelector('app-waitlist');
+    if (waitlistElement) {
+      waitlistElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 }
