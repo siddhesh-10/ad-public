@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-waitlist',
   imports: [ReactiveFormsModule, CommonModule, HttpClientModule],

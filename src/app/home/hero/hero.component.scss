@@ -1,17 +1,19 @@
+
+
 /* Hero Section */
 .hero {
-    position: relative;
-    height: 100vh; /* Full viewport height */
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center content vertically */
-    justify-content: center; /* Center content horizontally */
-    width: 100%; /* Ensure full width */
-    margin: 0px !important;
-    padding: 0px !important;
-    background-color: black;
-    font-family: "Oswald", serif;
+  position: relative;
+  height: 100vh; /* Full viewport height */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+  width: 100%; /* Ensure full width */
+  margin: 0px !important;
+  padding: 0px !important;
+  background-color: black;
+  font-family: "Oswald", serif;
 }
 
 
@@ -31,6 +33,32 @@
     text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     margin-bottom: 20px;
     animation: fadeInUp 1s ease-out;
+}
+
+#hero .title-logo {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: 10rem;
+  //background: linear-gradient(to right, #681f87, #3498db); /* Gradient colors */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  text-align: center;
+  background: linear-gradient( to right, #8e44ad, #ffd700 5%, #8e44ad 90% ); /* Gradient with golden streak */
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: move-light 10s linear infinite;
+}
+
+@keyframes move-light {
+  0% {
+    background-position: 200% center;
+  }
+
+  100% {
+    background-position: -200% center;
+  }
 }
 
 .hero p {
