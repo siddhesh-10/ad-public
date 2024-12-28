@@ -36,28 +36,7 @@ header, section, footer {
         transform: translate(-50%, -50%);
     }
 }
-.hero h1 {
-    font-size: 3.5rem;
-    font-weight: bold;
-    text-shadow: 0 0 10px #6A0DAD;
-}
-.hero p {
-    font-size: 1.2rem;
-    margin: 20px 0;
-}
-.hero button {
-    background: linear-gradient(135deg, #6A0DAD, #9C27B0);
-    border: none;
-    color: #FFFFFF;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.hero button:hover {
-    background: linear-gradient(135deg, #9C27B0, #6A0DAD);
-}
+
 .section-title {
     font-size: 2rem;
     font-weight: bold;
