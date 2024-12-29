@@ -1,0 +1,52 @@
+<p>profile works!</p>
+<div class="profile-container">
+  <h2>Your Profile</h2>
+
+  <!-- Profile Overview -->
+  <section class="profile-overview">
+    <img src="assets/logo-placeholder.png" alt="Brand Logo" class="brand-logo" />
+    <h3>Brand Name</h3>
+    <p>Email: sf.com</p>
+    <p>Phone: +91-1234567890</p>
+    <p>Website: <a href="https://www.brandwebsite.com">www.brandwebsite.com</a></p>
+  </section>
+
+  <!-- Campaign Preferences -->
+  <section class="preferences">
+    <h4>Campaign Preferences</h4>
+    <p>Preferred Niche: Tech, Lifestyle</p>
+    <p>Budget Range: ₹10,000 - ₹50,000</p>
+    <p>Goals: Brand Awareness</p>
+  </section>
+
+  <section calss="account">
+    <div class="account-details">
+      <h2>Account Details</h2>
+      <div>
+        <label>Account balance:</label>
+        <span>{{ accountBalance }}</span>
+        <button *ngIf="accountStatus === 'verified' ">Add money</button>
+      </div>
+      <div>
+        <label>Account Status:</label>
+        <span>{{ accountStatus }}</span>
+        <button *ngIf="accountStatus === 'Pending Verification'">Verify Account</button>
+      </div>
+
+      <div>
+        <label>Current Plan:</label>
+        <span>{{ subscriptionPlan }}</span>
+        <button (click)="onUpgradePlan()">Upgrade Plan</button>
+      </div>
+    </div>
+  </section>
+  <!-- Notifications and Security -->
+  <section class="settings">
+    <h4>Settings</h4>
+    <button>Manage Notifications</button>
+    <button>Change Password</button>
+  </section>
+
+  <!-- Logout -->
+  <button class="logout-btn">Logout</button>
+</div>

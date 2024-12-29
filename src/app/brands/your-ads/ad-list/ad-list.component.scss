@@ -1,0 +1,35 @@
+.ads-list {
+  padding: 20px;
+}
+
+.ad-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.ad-card {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.ad-card:hover {
+  transform: scale(1.05);
+}
+
+.ad-card h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.ad-card span.Live {
+  color: green;
+}
+
+.ad-card span.Ended {
+  color: red;
+}

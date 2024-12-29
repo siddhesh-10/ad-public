@@ -1,0 +1,31 @@
+<p>ad-details works!</p>
+<div class="ad-details" *ngIf="adDetails">
+  <h2>{{ adDetails.title }}</h2>
+  <p>{{ adDetails.description }}</p>
+  <p>Status: {{ adDetails.status }}</p>
+  <h3>Performance Metrics:</h3>
+  <p>Reach: {{ adDetails.metrics.reach | number }}</p>
+  <p>Engagement Rate: {{ adDetails.metrics.engagementRate }}%</p>
+  <div class="charts">
+    <!-- Budget Usage Chart -->
+    <div class="chart">
+      <h4>Budget Usage</h4>
+      <canvas id="budgetChart"></canvas>
+    </div>
+
+    <!-- Reach Chart -->
+    <div class="chart">
+      <h4>Total Reach</h4>
+      <canvas id="reachChart"></canvas>
+    </div>
+  </div>
+
+  <div class="applicants">
+    <h4>Applicants</h4>
+    <ul>
+      <li *ngFor="let applicant of adDetails.applicants">
+        {{ applicant.name }} - {{ applicant.followers }} followers
+      </li>
+    </ul>
+  </div>
+</div>

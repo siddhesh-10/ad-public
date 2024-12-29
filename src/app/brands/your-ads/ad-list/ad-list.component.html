@@ -1,0 +1,26 @@
+<p>ad-list works!</p>
+<div class="ads-list">
+  <h2>Your Ads</h2>
+  <div class="ad-cards">
+    <div class="ad-card" *ngFor="let ad of ads" >
+      <h3>{{ ad.title }}</h3>
+      <p>Status: <span [ngClass]="ad.status">{{ ad.status }}</span></p>
+      <p>Date: {{ ad.startDate | date }} - {{ ad.endDate | date }}</p>
+      <p>Reach: {{ ad.reach  }} people</p>
+      <button (click)="viewAdDetails(ad.id)">View Details</button>
+    </div>
+  </div>
+</div>
+
+
+<!--div class="ads-list">
+  <h2>Your Ads</h2>
+
+  <div class="ad-card" *ngFor="let ad of ads">
+    <h3>{{ ad.title }}</h3>
+    <p>Status: <span [class]="ad.status.toLowerCase()">{{ ad.status }}</span></p>
+    <p>Date Range: {{ ad.startDate }} - {{ ad.endDate }}</p>
+    <p>Total Reach: {{ ad.totalReach | 0 }}</p>
+    <button (click)="viewAdDetails(ad.id)">View Details</button>
+  </div>
+</div>-->
