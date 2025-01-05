@@ -1,1 +1,84 @@
 <p>brands-home works!</p>
+
+<div class="create-ad-form">
+  <h2>Create a New Ad</h2>
+  <form [formGroup]="adForm" (ngSubmit)="onSubmit()">
+    <!-- Ad Name -->
+    <mat-form-field appearance="outline" class="form-field" >
+      <mat-label>Ad Name</mat-label>
+      <input matInput formControlName="adName" required />
+      <mat-error *ngIf="adForm.get('adName')?.invalid && adForm.get('adName')?.touched">
+        Ad name is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Ad Requirements -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Ad Requirements</mat-label>
+      <textarea matInput formControlName="adRequirements" required></textarea>
+      <mat-error *ngIf="adForm.get('adRequirements')?.invalid && adForm.get('adRequirements')?.touched">
+        Ad requirements are required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Provided Content -->
+    <div class="upload-content">
+      <h3>Provided Content</h3>
+      <input type="file" (change)="onFileUpload($event)" multiple />
+    </div>
+
+    <!-- Specific Instructions -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Specific Instructions</mat-label>
+      <textarea matInput formControlName="instructions"></textarea>
+    </mat-form-field>
+
+    <!-- Budget -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Budget</mat-label>
+      <input matInput type="number" formControlName="budget" required />
+      <mat-error *ngIf="adForm.get('budget')?.invalid && adForm.get('budget')?.touched">
+        Please provide a valid budget.
+      </mat-error>
+    </mat-form-field>
+    <br />
+    <!-- Influencer Selection Mode -->
+    <mat-radio-group aria-label="Select an option" formControlName="selectionMode" class="selection-mode">
+      <mat-radio-button value="self">Self</mat-radio-button>
+      <mat-radio-button value="agency">HyperVibe Agency</mat-radio-button>
+      <mat-radio-button value="automatic">Automatic (Vibe Score)</mat-radio-button>
+    </mat-radio-group>
+
+    <!-- Influencer Requirements -->
+    <h3>Influencer Requirements</h3>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Type of Influencers</mat-label>
+      <input matInput formControlName="influencerType" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option value="fashion">Fashion</mat-option>
+        <mat-option value="tech">Tech</mat-option>
+        <mat-option value="lifestyle">Lifestyle</mat-option>
+        <mat-option value="fitness">Fitness</mat-option>
+        <mat-option value="others">Others</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Minimum Vibe Score</mat-label>
+      <input matInput type="number" formControlName="vibeScore" />
+    </mat-form-field>
+
+    <!-- Additional Parameters -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Additional Requirements</mat-label>
+      <textarea matInput formControlName="additionalRequirements"></textarea>
+    </mat-form-field>
+
+    <!-- Submit Button -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="adForm.invalid">Create Ad</button>
+  </form>
+</div>

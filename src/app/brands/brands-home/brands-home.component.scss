@@ -1,0 +1,14 @@
+.create-ad-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+mat-radio-group {
+  display: flex;
+  flex-direction: column;
+}
