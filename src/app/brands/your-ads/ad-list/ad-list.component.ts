@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ad-list',
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule],
   templateUrl: './ad-list.component.html',
   styleUrl: './ad-list.component.scss'
 })

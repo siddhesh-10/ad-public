@@ -10,8 +10,16 @@ import { BrandsHomeComponent } from './brands/brands-home/brands-home.component'
 import { MatTabsModule } from '@angular/material/tabs';
 import { AdListComponent } from './brands/your-ads/ad-list/ad-list.component';
 import { AdDetailsComponent } from './brands/your-ads/ad-details/ad-details.component';
+import { LoginSignupComponent } from './auth/login-signup/login-signup.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { VerifyCodeComponent } from './auth/verify-code/verify-code.component';
+import { SetPasswordComponent } from './auth/set-password/set-password.component';
 
 export const routes: Routes = [
+  { path: 'auth', component: LoginSignupComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'verify-code', component: VerifyCodeComponent },
+  { path: 'set-password', component: SetPasswordComponent },
   { path: 'home', component: HomeComponent },
   { path: 'how', component: HowItWorksComponent },
   {
