@@ -4,7 +4,7 @@ import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-ad-list',
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule],
   templateUrl: './ad-list.component.html',
   styleUrl: './ad-list.component.scss'
 })

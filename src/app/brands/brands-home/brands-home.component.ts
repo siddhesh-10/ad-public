@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {  MatOption } from '@angular/material/core';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { MatSelect } from '@angular/material/select';
@@ -10,7 +11,7 @@ import { MatSelect } from '@angular/material/select';
 @Component({
   selector: 'app-brands-home',
   imports: [
-    CommonModule, MatLabel, ReactiveFormsModule, MatFormFieldModule, MatRadioButton, MatOption, MatInputModule, MatSelect,MatRadioGroup
+    CommonModule, MatLabel, MatIconModule,ReactiveFormsModule, MatFormFieldModule, MatRadioButton, MatOption, MatInputModule, MatSelect,MatRadioGroup
   ],
   templateUrl: './brands-home.component.html',
   styleUrls: ['./brands-home.component.scss'],
