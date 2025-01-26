@@ -1,0 +1,8 @@
+<mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
+  <mat-tab label="Home"></mat-tab>
+  <mat-tab label="My Ads"></mat-tab>
+  <mat-tab label="Dashboard"></mat-tab>
+  <mat-tab label="Profile"></mat-tab>
+</mat-tab-group>
+
+<router-outlet></router-outlet> 

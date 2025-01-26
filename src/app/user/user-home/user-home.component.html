@@ -1,0 +1,95 @@
+<div class="user-home-container">
+  <!-- Promoted Ads Carousel -->
+  <section class="promoted-ads" *ngIf="promotedAds.length > 0">
+    <h2>Featured Opportunities</h2>
+    <div class="carousel-container">
+      <div class="carousel-track">
+        <mat-card class="ad-card promoted" *ngFor="let ad of promotedAds" (click)="showAdDetails(ad, $event)">
+          <mat-card-header>
+            <div class="promoted-badge">PROMOTED</div>
+            <mat-card-title>{{ ad.title }}</mat-card-title>
+            <mat-card-subtitle>{{ ad.influencerName }}</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image [src]="ad.imageUrl" [alt]="ad.title" loading="lazy">
+          <mat-card-content>
+            <p>{{ ad.description }}</p>
+            <div class="spots-info">
+              <span>Remaining Spots: {{ ad.remainingSpots }}/{{ ad.totalSpots }}</span>
+              <mat-progress-bar
+                [mode]="'determinate'"
+                [value]="getRemainingSpotPercentage(ad)"
+                [color]="getProgressBarColor(getRemainingSpotPercentage(ad))">
+              </mat-progress-bar>
+            </div>
+            <div class="stats">
+              <span>{{ ad.followers | number }} followers</span>
+              <span>{{ ad.engagement }}% engagement</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Regular Ads -->
+  <section class="regular-ads">
+    <h2>Available Opportunities</h2>
+    <div class="ads-grid">
+      <mat-card class="ad-card" *ngFor="let ad of regularAds" (click)="showAdDetails(ad, $event)">
+        <mat-card-header>
+          <mat-card-title>{{ ad.title }}</mat-card-title>
+          <mat-card-subtitle>{{ ad.influencerName }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="ad.imageUrl" [alt]="ad.title" loading="lazy">
+        <mat-card-content>
+          <p>{{ ad.description }}</p>
+          <div class="spots-info">
+            <span>Remaining Spots: {{ ad.remainingSpots }}/{{ ad.totalSpots }}</span>
+            <mat-progress-bar
+              [mode]="'determinate'"
+              [value]="getRemainingSpotPercentage(ad)"
+              [color]="getProgressBarColor(getRemainingSpotPercentage(ad))">
+            </mat-progress-bar>
+          </div>
+          <div class="stats">
+            <span>{{ ad.followers | number }} followers</span>
+            <span>{{ ad.engagement }}% engagement</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+
+  <!-- Details Modal -->
+  <div class="details-modal" *ngIf="showDetails && selectedAd">
+    <div class="modal-content">
+      <button class="close-button" (click)="closeDetails()">×</button>
+      <div class="ad-details">
+        <img [src]="selectedAd.imageUrl" [alt]="selectedAd.title">
+        <h2>{{ selectedAd.title }}</h2>
+        <div class="influencer-info">
+          <h3>{{ selectedAd.influencerName }}</h3>
+          <div class="spots-info">
+            <span>Remaining Spots: {{ selectedAd.remainingSpots }}/{{ selectedAd.totalSpots }}</span>
+            <mat-progress-bar
+              [mode]="'determinate'"
+              [value]="getRemainingSpotPercentage(selectedAd)"
+              [color]="getProgressBarColor(getRemainingSpotPercentage(selectedAd))">
+            </mat-progress-bar>
+          </div>
+          <div class="stats">
+            <span>{{ selectedAd.followers | number }} followers</span>
+            <span>{{ selectedAd.engagement }}% engagement</span>
+          </div>
+        </div>
+        <p class="description">{{ selectedAd.description }}</p>
+        <div class="price" *ngIf="selectedAd.price">
+          <span>Starting from: ${{ selectedAd.price | number }}</span>
+        </div>
+        <div class="category">
+          <span>Category: {{ selectedAd.category }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

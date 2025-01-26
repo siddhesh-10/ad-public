@@ -1,0 +1,104 @@
+<div class="dashboard-container">
+  <!-- Loading State -->
+  <div class="loading-state" *ngIf="!isDataLoaded">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading dashboard data...</p>
+  </div>
+
+  <!-- Dashboard Content -->
+  <ng-container *ngIf="isDataLoaded">
+    <!-- Stats Summary Cards -->
+    <div class="stats-grid">
+      <mat-card class="stat-card">
+        <mat-icon>payments</mat-icon>
+        <div class="stat-content">
+          <h3>Total Earnings</h3>
+          <p>${{ stats.totalEarnings | number }}</p>
+        </div>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-icon>campaign</mat-icon>
+        <div class="stat-content">
+          <h3>Active Ads</h3>
+          <p>{{ stats.activeAds }}</p>
+        </div>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-icon>how_to_reg</mat-icon>
+        <div class="stat-content">
+          <h3>Applications</h3>
+          <p>{{ stats.totalApplications }}</p>
+        </div>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-icon>trending_up</mat-icon>
+        <div class="stat-content">
+          <h3>Acceptance Rate</h3>
+          <p>{{ stats.acceptanceRate }}%</p>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-grid">
+      <!-- Monthly Earnings Chart -->
+      <mat-card class="chart-card earnings-chart">
+        <h2>Monthly Earnings</h2>
+        <canvas *ngIf="earningsChartData.datasets[0].data.length > 0"
+          baseChart
+          [type]="'line'"
+          [data]="earningsChartData"
+          [options]="earningsChartOptions">
+        </canvas>
+        <div *ngIf="earningsChartData.datasets[0].data.length === 0" class="no-data">
+          <mat-icon>show_chart</mat-icon>
+          <p>No earnings data available</p>
+        </div>
+      </mat-card>
+
+      <!-- Application Status Chart -->
+      <mat-card class="chart-card status-chart">
+        <h2>Application Status</h2>
+        <canvas baseChart
+          [type]="'doughnut'"
+          [data]="applicationChartData"
+          [options]="applicationChartOptions">
+        </canvas>
+      </mat-card>
+
+      <!-- Engagement Rate by Category -->
+      <mat-card class="chart-card engagement-chart">
+        <h2>Engagement by Category</h2>
+        <canvas baseChart
+          [type]="'bar'"
+          [data]="engagementChartData"
+          [options]="engagementChartOptions">
+        </canvas>
+      </mat-card>
+
+      <!-- Recent Activities -->
+      <mat-card class="activities-card">
+        <h2>Recent Activities</h2>
+        <div class="activities-list">
+          <div class="activity-item" *ngFor="let activity of recentActivities">
+            <mat-icon [class]="activity.type">{{ getActivityIcon(activity.type) }}</mat-icon>
+            <div class="activity-content">
+              <h3>{{ activity.title }}</h3>
+              <p class="activity-details">
+                <span *ngIf="activity.amount">${{ activity.amount | number }}</span>
+                <span *ngIf="activity.status" class="status {{ activity.status }}">
+                  {{ activity.status | titlecase }}
+                </span>
+                <span *ngIf="activity.campaign">{{ activity.campaign }}</span>
+              </p>
+              <p class="activity-date">{{ activity.date | date }}</p>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </ng-container>
+</div> 

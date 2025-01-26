@@ -1,0 +1,60 @@
+<div class="my-ads-container">
+  <div class="filters">
+    <mat-chip-listbox [value]="selectedStatus" (change)="filterAds($event.value)">
+      <mat-chip-option value="all">All Ads</mat-chip-option>
+      <mat-chip-option value="applied">Applied</mat-chip-option>
+      <mat-chip-option value="accepted">Accepted</mat-chip-option>
+      <mat-chip-option value="rejected">Rejected</mat-chip-option>
+    </mat-chip-listbox>
+  </div>
+
+  <div class="ads-grid" *ngIf="filteredAds.length > 0; else noAds">
+    <mat-card class="ad-card" *ngFor="let ad of filteredAds" 
+              (click)="showPerformanceDetails(ad)"
+              [class.clickable]="ad.status === 'accepted'">
+      <mat-card-header>
+        <mat-card-title>{{ ad.title || 'Untitled Ad' }}</mat-card-title>
+        <mat-card-subtitle>{{ ad.influencerName || 'Unknown Influencer' }}</mat-card-subtitle>
+        <mat-chip-set>
+          <mat-chip [color]="getStatusColor(ad.status)" selected>
+            {{ ad.status | titlecase }}
+          </mat-chip>
+        </mat-chip-set>
+      </mat-card-header>
+      
+      <img mat-card-image [src]="ad.imageUrl" [alt]="ad.title" 
+           (error)="handleImageError($event)" loading="lazy">
+      
+      <mat-card-content>
+        <div class="ad-info">
+          <p><strong>Category:</strong> {{ ad.category || 'Uncategorized' }}</p>
+          <p><strong>Applied:</strong> {{ ad.appliedDate | date }}</p>
+          <p *ngIf="ad.responseDate">
+            <strong>Response:</strong> {{ ad.responseDate | date }}
+          </p>
+        </div>
+
+        <div class="performance-preview" *ngIf="ad.status === 'accepted' && ad.performance">
+          <p class="hint">Click to view detailed performance metrics</p>
+          <div class="preview-stats">
+            <div>
+              <mat-icon>visibility</mat-icon>
+              <span>{{ ad.performance.views | number }}</span>
+            </div>
+            <div>
+              <mat-icon>payments</mat-icon>
+              <span>${{ ad.performance.currentEarnings | number }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <ng-template #noAds>
+    <div class="no-ads">
+      <mat-icon>campaign_off</mat-icon>
+      <p>No ads found for the selected filter</p>
+    </div>
+  </ng-template>
+</div> 

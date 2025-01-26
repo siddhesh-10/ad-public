@@ -1,0 +1,161 @@
+<div class="profile-container">
+  <!-- Loading State -->
+  <div class="loading-state" *ngIf="isLoading">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading profile...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="error-state" *ngIf="error">
+    <mat-icon>error_outline</mat-icon>
+    <p>{{ error }}</p>
+    <button mat-button color="primary" (click)="loadProfile()">Retry</button>
+  </div>
+
+  <!-- Profile Content -->
+  <ng-container *ngIf="!isLoading && !error && profile">
+    <!-- Profile Header -->
+    <mat-card class="profile-header">
+      <div class="profile-info">
+        <img [src]="profile.avatar" [alt]="profile.name" class="avatar" (error)="handleImageError($event)">
+        <div class="info-content">
+          <h1>{{ profile.name }}</h1>
+          <p class="bio">{{ profile.bio || 'No bio available' }}</p>
+          <div class="meta-info">
+            <span><mat-icon>location_on</mat-icon>{{ profile.location || 'Location not set' }}</span>
+            <span><mat-icon>calendar_today</mat-icon>Joined {{ profile.joinedDate | date }}</span>
+          </div>
+          <div class="categories">
+            <span class="category" *ngFor="let category of profile.categories">
+              {{ category }}
+            </span>
+            <span class="no-categories" *ngIf="!profile.categories?.length">
+              No categories selected
+            </span>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+
+    <!-- Main Content -->
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <!-- Social Accounts Tab -->
+      <mat-tab label="Social Accounts">
+        <div class="social-accounts-container">
+          <div class="connect-social">
+            <button mat-raised-button color="primary" (click)="connectSocialAccount()">
+              <mat-icon>add</mat-icon>
+              Connect New Account
+            </button>
+          </div>
+
+          <div class="social-accounts">
+            <ng-container *ngIf="profile.socialAccounts?.length; else noSocialAccounts">
+              <mat-card class="social-card" *ngFor="let account of profile.socialAccounts">
+                <div class="platform-info">
+                  <mat-icon>{{ getSocialIcon(account.platform) }}</mat-icon>
+                  <div class="platform-details">
+                    <h3>{{ account.platform | titlecase }}</h3>
+                    <a [href]="account.url" target="_blank">{{ account.username }}</a>
+                    <mat-icon *ngIf="account.verified" class="verified">verified</mat-icon>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="stats">
+                  <div class="stat">
+                    <span class="label">Followers</span>
+                    <span class="value">{{ formatFollowers(account.followers) }}</span>
+                  </div>
+                  <div class="stat">
+                    <span class="label">Engagement</span>
+                    <span class="value">{{ account.engagement }}%</span>
+                  </div>
+                </div>
+              </mat-card>
+            </ng-container>
+            <ng-template #noSocialAccounts>
+              <div class="no-data">
+                <mat-icon>link_off</mat-icon>
+                <p>No social accounts connected</p>
+                <button mat-raised-button color="primary" (click)="connectSocialAccount()">
+                  Connect Your First Account
+                </button>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- Payout Information Tab -->
+      <mat-tab label="Payout Information">
+        <div class="payout-section" *ngIf="profile.payoutInfo; else noPayoutInfo">
+          <!-- Earnings Overview -->
+          <mat-card class="earnings-card">
+            <div class="earnings-grid">
+              <div class="earning-stat">
+                <h3>Total Earned</h3>
+                <p>Rs{{ profile.payoutInfo.totalEarned | number }}</p>
+              </div>
+              <div class="earning-stat">
+                <h3>Pending Amount</h3>
+                <p>Rs{{ profile.payoutInfo.pendingAmount | number }}</p>
+              </div>
+              <div class="earning-stat">
+                <h3>Last Payout</h3>
+                <p>Rs{{ profile.payoutInfo.lastPayout.amount | number }}</p>
+                <span class="date">{{ profile.payoutInfo.lastPayout.date | date }}</span>
+              </div>
+            </div>
+          </mat-card>
+
+          <!-- Bank Information -->
+          <mat-card class="bank-info">
+            <h2>Bank Account Details</h2>
+            <div class="bank-details">
+              <div class="detail-row">
+                <span class="label">Account Holder</span>
+                <span class="value">{{ profile.payoutInfo.accountHolder }}</span>
+              </div>
+              <div class="detail-row">
+                <span class="label">Bank Name</span>
+                <span class="value">{{ profile.payoutInfo.bankName }}</span>
+              </div>
+              <div class="detail-row">
+                <span class="label">Account Number</span>
+                <span class="value">{{ profile.payoutInfo.accountNumber }}</span>
+              </div>
+              <div class="detail-row">
+                <span class="label">IFSC Code</span>
+                <span class="value">{{ profile.payoutInfo.ifscCode }}</span>
+              </div>
+            </div>
+            <button mat-button color="primary">Update Bank Details</button>
+          </mat-card>
+
+          <!-- Payout History -->
+          <mat-card class="payout-history">
+            <h2>Payout History</h2>
+            <div class="history-list">
+              <div class="history-item" *ngFor="let payout of profile.payoutInfo.payoutHistory">
+                <div class="transaction-info">
+                  <span class="amount">Rs{{ payout.amount | number }}</span>
+                  <span class="date">{{ payout.date | date }}</span>
+                </div>
+                <div class="status-info">
+                  <span class="status" [class]="payout.status">{{ payout.status | titlecase }}</span>
+                  <span class="transaction-id">{{ payout.transactionId }}</span>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+        <ng-template #noPayoutInfo>
+          <div class="no-data">
+            <mat-icon>account_balance_wallet</mat-icon>
+            <p>No payout information available</p>
+          </div>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </ng-container>
+</div> 

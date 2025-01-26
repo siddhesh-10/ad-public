@@ -1,0 +1,73 @@
+<h2 mat-dialog-title>Performance Metrics - {{data?.title || 'N/A'}}</h2>
+<mat-dialog-content>
+  <div class="performance-grid" *ngIf="data?.performance; else noData">
+    <div class="metric-card">
+      <h3>Engagement</h3>
+      <div class="metric">
+        <div>
+          <mat-icon>visibility</mat-icon>
+          <span>{{data?.performance?.views | number}} views</span>
+        </div>
+        <div>
+          <mat-icon>thumb_up</mat-icon>
+          <span>{{data?.performance?.likes | number}} likes</span>
+        </div>
+        <div>
+          <mat-icon>comment</mat-icon>
+          <span>{{data?.performance?.comments | number}} comments</span>
+        </div>
+        <div>
+          <mat-icon>share</mat-icon>
+          <span>{{data?.performance?.shares | number}} shares</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="metric-card">
+      <h3>Earnings</h3>
+      <div class="metric">
+        <div>
+          <mat-icon>payments</mat-icon>
+          <span>Current: ${{data?.performance?.currentEarnings | number}}</span>
+        </div>
+        <div>
+          <mat-icon>trending_up</mat-icon>
+          <span>Projected: ${{data?.performance?.projectedEarnings | number}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <h3>Rates</h3>
+      <div class="metric">
+        <div>
+          <mat-icon>trending_up</mat-icon>
+          <span>Engagement: {{data?.performance?.engagementRate}}%</span>
+        </div>
+        <div>
+          <mat-icon>groups</mat-icon>
+          <span>Reach: {{data?.performance?.reachRate}}%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <h3>Campaign Period</h3>
+      <div class="metric">
+        <div>
+          <mat-icon>calendar_today</mat-icon>
+          <span>{{data?.performance?.startDate | date}} - {{data?.performance?.endDate | date}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noData>
+    <div class="no-data">
+      <mat-icon>info</mat-icon>
+      <p>No performance data available</p>
+    </div>
+  </ng-template>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions> 
