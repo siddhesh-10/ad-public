@@ -1,20 +1,22 @@
-<div>
-  <div>
+<div class="home-container">
+  <div class="hero-section fade-in">
     <app-hero></app-hero>
   </div>
 
-  <div class="how-it-works-container">
-    <div class="slide-right">
+  <div class="content-section">
+    <div class="particles-wrapper">
+      <div class="particle" *ngFor="let i of particles"></div>
+    </div>
+
+    <div class="how-it-works-container slide-right">
       <app-how-it-works></app-how-it-works>
     </div>
-  </div>
-  <div class="waitlist-container">
-    <div>
+
+    <div class="waitlist-container fade-in">
       <app-waitlist #waitlistSection></app-waitlist>
     </div>
-  </div>
-  <div class="whyjoinus-container">
-    <div>
+
+    <div class="whyjoinus-container slide-left">
       <app-why-join-us #whyjoinusSection></app-why-join-us>
     </div>
 
@@ -22,9 +24,4 @@
       <app-wave></app-wave>
     </div>
   </div>
-  <!-- <div>
-    <app-footer></app-footer>
-  </div> -->
-
-
 </div>

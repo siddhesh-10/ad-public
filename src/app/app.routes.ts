@@ -15,6 +15,7 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
 import { UserComponent } from './user/user.component';
 import { UserHomeComponent } from './user/user-home/user-home.component';
 import { MyAdsComponent } from './user/my-ads/my-ads.component';
+import { Home2Component } from './home2-experiment/home2.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -46,6 +47,7 @@ export const routes: Routes = [
     { path: '', redirectTo: 'user-home', pathMatch: 'full' }
   ]
 },
+  { path: 'home2', component: Home2Component },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 @NgModule({

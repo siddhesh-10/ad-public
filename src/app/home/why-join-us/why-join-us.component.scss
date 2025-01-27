@@ -1,80 +1,231 @@
-header, section, footer {
-    padding: 20px;
+// Variables
+$primary-color: #6A0DAD;
+$secondary-color: #9C27B0;
+$background-dark: #1E1E2C;
+$card-bg: #29293D;
+$text-light: #FFFFFF;
+
+section {
+    padding: 40px 20px;
     margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: #1E1E2C;
-            color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    background-color: $background-dark;
+    color: $text-light;
+    position: relative;
+    overflow: hidden;
 }
 
+// Title Styles
+.section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, $primary-color, $secondary-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+}
+
+.underline {
+    display: block;
+    height: 4px;
+    width: 80px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, $primary-color, $secondary-color);
+    margin-bottom: 40px;
+}
+
+// Grid Layout
+.grid {
+    display: grid;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+// Card Styles
+.card {
+    background: linear-gradient(145deg, rgba(41, 41, 61, 0.9), rgba(41, 41, 61, 0.7));
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba($primary-color, 0.2);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, 
+            rgba($primary-color, 0.1), 
+            rgba($secondary-color, 0.1)
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        border-color: rgba($primary-color, 0.5);
+
+        &::before {
+            opacity: 1;
+        }
+
+        h3 {
+            background: linear-gradient(135deg, $primary-color, $secondary-color);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    p {
+        color: rgba($text-light, 0.8);
+        line-height: 1.6;
+        margin: 0;
+        position: relative;
+        z-index: 1;
+    }
+}
+
+// Background Animation
 .background-animation {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
-    background: radial-gradient(circle, #1E1E2C, #2C2C3E);
-    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+
+    .stars {
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        animation: rotate 100s linear infinite;
+        background: radial-gradient(circle at center, 
+            rgba(255, 255, 255, 0.1) 0%, 
+            transparent 10%
+        ) 0 0 / 50px 50px;
+    }
 }
 
-.stars {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 200%;
-    background: transparent;
-    background-image: radial-gradient(2px 2px at center, #FFFFFF 0%, transparent 100%);
-    animation: move-stars 20s linear infinite;
+// Responsive Design
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .grid {
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .card {
+        padding: 20px;
+
+        h3 {
+            font-size: 1.3rem;
+        }
+    }
 }
 
-@keyframes move-stars {
+// Animation Keyframes
+@keyframes rotate {
     from {
-        transform: translate(0, 0);
+        transform: rotate(0deg);
     }
     to {
-        transform: translate(-50%, -50%);
+        transform: rotate(360deg);
     }
 }
 
-.section-title {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-}
-.underline {
-    display: inline-block;
-    height: 4px;
-    width: 80px;
-    background: linear-gradient(135deg, #6A0DAD, #9C27B0);
-    margin-top: 10px;
-}
-.grid {
-    display: grid;
-    gap: 20px;
-}
-.grid-2 {
-    grid-template-columns: repeat(2, 1fr);
-}
+// Card Animation on Scroll
 .card {
-    background: #29293D;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #6A0DAD;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px #6A0DAD;
-}
-.card h3 {
-    margin: 10px 0;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+    animation-timeline: view();
+    animation-range: entry 20% cover 50%;
 }
 
-.section-title {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    color: #FFFFFF;
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Add hover effects for interactive elements
+.card {
+    cursor: pointer;
+    
+    &:hover {
+        .stats {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+// Stats section (similar to user-home)
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+// Add gradient borders
+.card {
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 15px;
+        padding: 1px;
+        background: linear-gradient(45deg, $primary-color, $secondary-color);
+        -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box, 
+            linear-gradient(#fff 0 0);
+        mask: 
+            linear-gradient(#fff 0 0) content-box, 
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    &:hover::after {
+        opacity: 1;
+    }
 }
