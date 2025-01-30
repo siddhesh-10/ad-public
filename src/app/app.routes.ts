@@ -20,7 +20,7 @@ export const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-code', component: VerifyCodeComponent },
   { path: 'set-password', component: SetPasswordComponent },
-  { path: 'home', component: HomeComponent },
+  // { path: 'home', component: HomeComponent },
   { path: 'how', component: HowItWorksComponent },
   {
     path: 'brands', component: BrandsComponent,
@@ -38,7 +38,7 @@ export const routes: Routes = [
       { path: 'profile', component: ProfileComponent },
     ],
 },
-  { path: '**', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'brands', pathMatch: 'full' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes), MatTabsModule],

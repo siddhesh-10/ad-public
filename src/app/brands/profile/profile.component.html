@@ -1,52 +1,118 @@
-<p>profile works!</p>
-<div class="profile-container">
-  <h2>Your Profile</h2>
-
-  <!-- Profile Overview -->
-  <section class="profile-overview">
-    <img src="../../../assets/logo-placeholder.png" alt="Brand Logo" class="brand-logo" />
-    <h3>Brand Name</h3>
-    <p>Email: sf.com</p>
-    <p>Phone: +91-1234567890</p>
-    <p>Website: <a href="https://www.brandwebsite.com">www.brandwebsite.com</a></p>
-  </section>
-
-  <!-- Campaign Preferences -->
-  <section class="preferences">
-    <h4>Campaign Preferences</h4>
-    <p>Preferred Niche: Tech, Lifestyle</p>
-    <p>Budget Range: ₹10,000 - ₹50,000</p>
-    <p>Goals: Brand Awareness</p>
-  </section>
-
-  <section calss="account">
-    <div class="account-details">
-      <h2>Account Details</h2>
-      <div>
-        <label>Account balance:</label>
-        <span>{{ accountBalance }}</span>
-        <button *ngIf="accountStatus === 'verified' ">Add money</button>
+<div class="min-h-screen bg-gray-900 text-gray-100 p-8">
+  <div class="max-w-7xl mx-auto space-y-8">
+    <!-- Brand Header -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div class="flex items-center gap-4">
+        <img [src]="brand.logo" alt="Brand Logo" class="w-16 h-16 rounded-lg object-cover">
+        <div>
+          <h1 class="text-2xl font-bold">{{brand.name}}</h1>
+          <p class="text-gray-400">{{brand.industry}}</p>
+        </div>
       </div>
-      <div>
-        <label>Account Status:</label>
-        <span>{{ accountStatus }}</span>
-        <button *ngIf="accountStatus === 'Pending Verification'">Verify Account</button>
-      </div>
-
-      <div>
-        <label>Current Plan:</label>
-        <span>{{ subscriptionPlan }}</span>
-        <button (click)="onUpgradePlan()">Upgrade Plan</button>
+      <div class="flex gap-2">
+        <button class="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors">
+          Edit Profile
+        </button>
+        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+          New Campaign
+        </button>
       </div>
     </div>
-  </section>
-  <!-- Notifications and Security -->
-  <section class="settings">
-    <h4>Settings</h4>
-    <button>Manage Notifications</button>
-    <button>Change Password</button>
-  </section>
 
-  <!-- Logout -->
-  <button class="logout-btn">Logout</button>
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-gray-800 p-6 rounded-xl">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-400 text-sm">Total Campaigns</p>
+            <p class="text-3xl font-bold mt-2">{{stats.totalCampaigns}}</p>
+          </div>
+          <div class="p-3 bg-blue-500/20 rounded-lg">
+            <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-800 p-6 rounded-xl">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-400 text-sm">Avg. Engagement</p>
+            <p class="text-3xl font-bold mt-2">{{stats.avgEngagement}}%</p>
+          </div>
+          <div class="p-3 bg-green-500/20 rounded-lg">
+            <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-800 p-6 rounded-xl">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-400 text-sm">Total Reach</p>
+            <p class="text-3xl font-bold mt-2">{{stats.totalReach | number}}</p>
+          </div>
+          <div class="p-3 bg-purple-500/20 rounded-lg">
+            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Performance Chart -->
+    <div class="bg-gray-800 p-6 rounded-xl">
+      <h2 class="text-xl font-bold mb-4">Campaign Performance</h2>
+      <div class="h-80">
+        <canvas #performanceChart></canvas>
+      </div>
+    </div>
+
+    <!-- Recent Campaigns -->
+    <div class="bg-gray-800 rounded-xl overflow-hidden">
+      <div class="p-6 border-b border-gray-700">
+        <h2 class="text-xl font-bold">Recent Campaigns</h2>
+      </div>
+      
+      <div class="divide-y divide-gray-700">
+        <div *ngFor="let campaign of campaigns" class="p-6 hover:bg-gray-700/20 transition-colors">
+          <div class="flex items-center justify-between gap-4">
+            <div class="flex-1">
+              <div class="flex items-center gap-3">
+                <h3 class="font-semibold">{{campaign.name}}</h3>
+                <span class="px-2 py-1 text-xs rounded-full" 
+                      [ngClass]="{
+                        'bg-green-500/20 text-green-400': campaign.status === 'Active',
+                        'bg-blue-500/20 text-blue-400': campaign.status === 'Completed',
+                        'bg-yellow-500/20 text-yellow-400': campaign.status === 'Pending'
+                      }">
+                  {{campaign.status}}
+                </span>
+              </div>
+              <p class="text-gray-400 text-sm mt-1">{{campaign.date}}</p>
+            </div>
+
+            <div class="text-right">
+              <p class="text-lg font-semibold text-green-400">{{campaign.budget}}</p>
+              <p class="text-sm text-gray-400">{{campaign.applications}} applications</p>
+            </div>
+          </div>
+          
+          <div class="mt-4">
+            <div class="flex justify-between text-sm mb-1">
+              <span class="text-gray-400">Progress</span>
+              <span class="text-gray-400">{{campaign.progress}}%</span>
+            </div>
+            <div class="h-2 bg-gray-700 rounded-full">
+              <div class="h-2 bg-blue-500 rounded-full" [style.width.%]="campaign.progress"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

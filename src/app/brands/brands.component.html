@@ -1,9 +1,51 @@
+<div class="flex flex-col">
+  <nav class="bg-gray-800">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <div class="flex items-center">
+          <div class="hidden md:block">
+            <div class="flex space-x-1">
+              <button
+                *ngFor="let tab of tabs; let i = index"
+                (click)="onTabChange(i)"
+                [id]="'tab-' + i"
+                role="tab"
+                [attr.aria-selected]="selectedTabIndex === i"
+                class="px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                [class.bg-gray-900]="selectedTabIndex === i"
+                [class.text-white]="selectedTabIndex === i"
+                [class.text-gray-300]="selectedTabIndex !== i"
+                [class.hover:bg-gray-700]="selectedTabIndex !== i"
+                [class.hover:text-white]="selectedTabIndex !== i"
+              >
+                {{ tab.label }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-<mat-tab-group (selectedIndexChange)="onTabChange($event)" [selectedIndex]="selectedTabIndex">
-  <mat-tab label="Home"></mat-tab>
-  <mat-tab label="Your Ads"></mat-tab>
-  <mat-tab label="Dashboard"></mat-tab>
-  <mat-tab label="Profile"></mat-tab>
-</mat-tab-group>
+  <!-- Content panels -->
+  <div class="bg-gray-900 min-h-screen">
+    <div *ngFor="let tab of tabs; let i = index" 
+         [id]="'panel-' + i"
+         role="tabpanel"
+         [attr.aria-labelledby]="'tab-' + i"
+         class="p-8 text-gray-300"
+         [class.hidden]="selectedTabIndex !== i">
 
-<router-outlet></router-outlet>
+      <div *ngIf="i === 0" class="max-w-7xl mx-auto"> 
+        <app-brands-home></app-brands-home>      
+      </div>
+      <div *ngIf="i === 1" class="max-w-7xl mx-auto"> 
+        <app-your-ads></app-your-ads>      
+      </div>
+      <div *ngIf="i === 2" class="max-w-7xl mx-auto"> 
+        <app-profile></app-profile>      
+      </div>
+
+    </div>
+  </div>
+</div>

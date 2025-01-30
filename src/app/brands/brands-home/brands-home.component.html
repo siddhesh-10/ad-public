@@ -1,84 +1,242 @@
-<p>brands-home works!</p>
-
-<div class="create-ad-form">
-  <h2>Create a New Ad</h2>
-  <form [formGroup]="adForm" (ngSubmit)="onSubmit()">
-    <!-- Ad Name -->
-    <mat-form-field appearance="outline" class="form-field" >
-      <mat-label>Ad Name</mat-label>
-      <input matInput formControlName="adName" required />
-      <mat-error *ngIf="adForm.get('adName')?.invalid && adForm.get('adName')?.touched">
-        Ad name is required.
-      </mat-error>
-    </mat-form-field>
-
-    <!-- Ad Requirements -->
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Ad Requirements</mat-label>
-      <textarea matInput formControlName="adRequirements" required></textarea>
-      <mat-error *ngIf="adForm.get('adRequirements')?.invalid && adForm.get('adRequirements')?.touched">
-        Ad requirements are required.
-      </mat-error>
-    </mat-form-field>
-
-    <!-- Provided Content -->
-    <div class="upload-content">
-      <h3>Provided Content</h3>
-      <input type="file" (change)="onFileUpload($event)" multiple />
+<div class="min-h-screen bg-gray-900 text-gray-100 flex items-center justify-center p-4">
+  <div class="w-full max-w-3xl bg-gray-800 rounded-xl shadow-2xl p-8">
+    <!-- Form Header -->
+    <div class="mb-8 text-center">
+      <h2 class="text-3xl font-bold tracking-tight">Create New Campaign</h2>
+      <p class="mt-2 text-gray-400">Reach your ideal audience with precision targeting</p>
     </div>
 
-    <!-- Specific Instructions -->
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Specific Instructions</mat-label>
-      <textarea matInput formControlName="instructions"></textarea>
-    </mat-form-field>
+    <form [formGroup]="adForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <!-- Main Campaign Section -->
+      <div class="space-y-6">
+        <!-- Ad Details Card -->
+        <div class="bg-gray-700/20 p-6 rounded-xl border border-gray-700/50">
+          <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            Campaign Basics
+          </h3>
+          
+          <div class="grid grid-cols-1 gap-4">
+            <!-- Ad Name -->
+            <div>
+              <label class="block text-sm font-medium mb-2">Campaign Name</label>
+              <input type="text" formControlName="adName" required
+                     class="w-full px-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg 
+                            focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                            placeholder-gray-400 transition-all">
+              <div *ngIf="getFormControl('adName')?.invalid && getFormControl('adName')?.touched" 
+                   class="text-red-400 text-sm mt-1">
+                Campaign name is required (min 3 characters)
+              </div>
+            </div>
 
-    <!-- Budget -->
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Budget</mat-label>
-      <input matInput type="number" formControlName="budget" required />
-      <mat-error *ngIf="adForm.get('budget')?.invalid && adForm.get('budget')?.touched">
-        Please provide a valid budget.
-      </mat-error>
-    </mat-form-field>
-    <br />
-    <!-- Influencer Selection Mode -->
-    <mat-radio-group aria-label="Select an option" formControlName="selectionMode" class="selection-mode">
-      <mat-radio-button value="self">Self</mat-radio-button>
-      <mat-radio-button value="agency">HyperVibe Agency</mat-radio-button>
-      <mat-radio-button value="automatic">Automatic (Vibe Score)</mat-radio-button>
-    </mat-radio-group>
+            <!-- Ad Requirements -->
+            <div>
+              <label class="block text-sm font-medium mb-2">Campaign Brief</label>
+              <textarea formControlName="adRequirements" required rows="3"
+                        class="w-full px-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg 
+                               focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                               placeholder-gray-400 transition-all"></textarea>
+              <div *ngIf="getFormControl('adRequirements')?.invalid && getFormControl('adRequirements')?.touched" 
+                   class="text-red-400 text-sm mt-1">
+                Campaign brief is required
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <!-- Influencer Requirements -->
-    <h3>Influencer Requirements</h3>
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Type of Influencers</mat-label>
-      <input matInput formControlName="influencerType" />
-    </mat-form-field>
+        <!-- Content & Budget Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Content Upload -->
+          <div class="bg-gray-700/20 p-6 rounded-xl border border-gray-700/50">
+            <h3 class="text-lg font-semibold mb-4">Media Assets</h3>
+            <div class="border-2 border-dashed border-gray-600 rounded-xl p-6 text-center 
+                       hover:border-blue-500 transition-colors cursor-pointer relative"
+                 (dragover)="$event.preventDefault()" (drop)="onFileDrop($event)">
+              <input type="file" (change)="onFileUpload($event)" multiple 
+                     class="hidden" id="fileUpload" #fileInput>
+              <label for="fileUpload" class="cursor-pointer block">
+                <div class="mb-3 text-blue-400">
+                  <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                  </svg>
+                </div>
+                <p class="text-sm text-gray-300">Drag & drop files or <span class="text-blue-400">browse</span></p>
+                <p class="text-xs text-gray-400 mt-1">Max 10 files (JPG, PNG, MP4)</p>
+              </label>
+            </div>
+            
+            <!-- Uploaded Files List -->
+            <div *ngIf="uploadedFiles.length > 0" class="mt-4 space-y-2">
+              <div *ngFor="let file of uploadedFiles" class="flex items-center justify-between p-2 bg-gray-700/50 rounded">
+                <div class="flex items-center space-x-2 truncate">
+                  <span class="text-sm text-gray-300 truncate">{{ file.name }}</span>
+                  <span class="text-xs text-gray-400">({{ formatFileSize(file.size) }})</span>
+                </div>
+                <button type="button" (click)="removeFile(file)" 
+                        class="text-red-400 hover:text-red-300 transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
 
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Category</mat-label>
-      <mat-select formControlName="category">
-        <mat-option value="fashion">Fashion</mat-option>
-        <mat-option value="tech">Tech</mat-option>
-        <mat-option value="lifestyle">Lifestyle</mat-option>
-        <mat-option value="fitness">Fitness</mat-option>
-        <mat-option value="others">Others</mat-option>
-      </mat-select>
-    </mat-form-field>
+          <!-- Budget & Timeline -->
+          <div class="bg-gray-700/20 p-6 rounded-xl border border-gray-700/50">
+            <h3 class="text-lg font-semibold mb-4">Budget & Timeline</h3>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium mb-2">Total Budget ($)</label>
+                <div class="relative">
+                  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">$</span>
+                  <input type="number" formControlName="budget" required
+                         class="w-full pl-8 pr-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg 
+                                focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                                placeholder-gray-400 transition-all">
+                </div>
+                <div *ngIf="getFormControl('budget')?.invalid && getFormControl('budget')?.touched" 
+                     class="text-red-400 text-sm mt-1">
+                  Minimum budget is $100
+                </div>
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium mb-2">Campaign Duration</label>
+                <div class="grid grid-cols-2 gap-3">
+                  <input type="date" formControlName="startDate"
+                         class="w-full px-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg 
+                                focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                                [&::-webkit-calendar-picker-indicator]:invert-[0.8]">
+                  <input type="date" formControlName="endDate"
+                         class="w-full px-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg 
+                                focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                                [&::-webkit-calendar-picker-indicator]:invert-[0.8]">
+                </div>
+                <div *ngIf="getFormControl('startDate')?.invalid && getFormControl('startDate')?.touched" 
+                     class="text-red-400 text-sm mt-1">
+                  Start date is required
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Minimum Vibe Score</mat-label>
-      <input matInput type="number" formControlName="vibeScore" />
-    </mat-form-field>
+        <!-- Influencer Selection -->
+        <div class="bg-gray-700/20 p-6 rounded-xl border border-gray-700/50">
+          <h3 class="text-lg font-semibold mb-4">Influencer Matching</h3>
+          <div class="space-y-5">
+            <!-- Selection Mode Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 h-full">
+              <label class="relative cursor-pointer h-full">
+                <input type="radio" formControlName="selectionMode" value="self" class="peer hidden">
+                <div class="p-4 border-2 border-gray-600 rounded-xl hover:border-blue-500 
+                           peer-checked:border-blue-500 peer-checked:bg-blue-500/10 transition-all h-full">
+                  <div class="text-center">
+                    <div class="text-blue-400 mb-2">👤</div>
+                    <h4 class="font-medium">Self Managed</h4>
+                    <p class="text-xs text-gray-400 mt-1">Select influencers manually</p>
+                  </div>
+                </div>
+              </label>
 
-    <!-- Additional Parameters -->
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Additional Requirements</mat-label>
-      <textarea matInput formControlName="additionalRequirements"></textarea>
-    </mat-form-field>
+              <label class="relative cursor-pointer h-full">
+                <input type="radio" formControlName="selectionMode" value="agency" class="peer hidden">
+                <div class="p-4 border-2 border-gray-600 rounded-xl hover:border-blue-500 
+                           peer-checked:border-blue-500 peer-checked:bg-blue-500/10 transition-all h-full">
+                  <div class="text-center">
+                    <div class="text-blue-400 mb-2">🏢</div>
+                    <h4 class="font-medium">Agency Managed</h4>
+                    <p class="text-xs text-gray-400 mt-1">HyperVibe experts handle selection</p>
+                  </div>
+                </div>
+              </label>
 
-    <!-- Submit Button -->
-    <button mat-raised-button color="primary" type="submit" [disabled]="adForm.invalid">Create Ad</button>
-  </form>
+              <label class="relative cursor-pointer h-full">
+                <input type="radio" formControlName="selectionMode" value="automatic" class="peer hidden">
+                <div class="p-4 border-2 border-gray-600 rounded-xl hover:border-blue-500 
+                           peer-checked:border-blue-500 peer-checked:bg-blue-500/10 transition-all h-full">
+                  <div class="text-center">
+                    <div class="text-blue-400 mb-2">🤖</div>
+                    <h4 class="font-medium">Auto Match</h4>
+                    <p class="text-xs text-gray-400 mt-1">AI-powered Vibe Score matching</p>
+                  </div>
+                </div>
+              </label>
+            </div>
+
+            <!-- Requirements Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-2">Influencer Type</label>
+                <input type="text" formControlName="influencerType"
+                       class="w-full px-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg 
+                              focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium mb-2">Category</label>
+                <select formControlName="category"
+                        class="w-full px-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg 
+                               focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <option value="fashion">Fashion</option>
+                  <option value="tech">Tech</option>
+                  <option value="lifestyle">Lifestyle</option>
+                  <option value="fitness">Fitness</option>
+                  <option value="others">Others</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium mb-2">Vibe Score ⚡</label>
+                <div class="relative">
+                  <input type="number" formControlName="vibeScore"
+                         class="w-full pl-8 pr-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg 
+                                focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400">≥</span>
+                </div>
+                <div *ngIf="getFormControl('vibeScore')?.invalid" class="text-red-400 text-sm mt-1">
+                  Must be between 0-100
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Final Section -->
+        <div class="bg-gray-700/20 p-6 rounded-xl border border-gray-700/50">
+          <h3 class="text-lg font-semibold mb-4">Additional Requirements</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium mb-2">Special Instructions</label>
+              <textarea formControlName="instructions" rows="3"
+                        class="w-full px-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg 
+                               focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                               placeholder-gray-400 transition-all"></textarea>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2">Campaign Hashtags</label>
+              <input type="text" formControlName="hashtags"
+                     class="w-full px-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg 
+                            focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                            placeholder-gray-400 transition-all">
+              <p class="text-xs text-gray-400 mt-1">Separate hashtags with commas</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="adForm.invalid"
+              class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg
+                     transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed">
+        Launch Campaign 🚀
+      </button>
+    </form>
+  </div>
 </div>
