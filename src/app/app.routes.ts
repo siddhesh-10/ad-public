@@ -14,30 +14,14 @@ import { LoginSignupComponent } from './auth/login-signup/login-signup.component
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { VerifyCodeComponent } from './auth/verify-code/verify-code.component';
 import { SetPasswordComponent } from './auth/set-password/set-password.component';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
-  { path: 'auth', component: LoginSignupComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'verify-code', component: VerifyCodeComponent },
-  { path: 'set-password', component: SetPasswordComponent },
-  // { path: 'home', component: HomeComponent },
-  { path: 'how', component: HowItWorksComponent },
-  {
-    path: 'brands', component: BrandsComponent,
-    children: [
-      { path: 'brand-home', component: BrandsHomeComponent },
-      {
-        path: 'your-ads',
-        component: YourAdsComponent,
-        children: [
-          { path: '', component: AdListComponent }, // Default route: show all ads
-          { path: 'ad-details/:adId', component: AdDetailsComponent }, // Show details of a specific ad
-        ],
-      }, 
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'profile', component: ProfileComponent },
-    ],
-},
+  { path: 'auth', component: LoginSignupComponent, canActivate: [authGuard] },
+  { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [authGuard] },
+  { path: 'verify-code', component: VerifyCodeComponent, canActivate: [authGuard] },
+  { path: 'set-password', component: SetPasswordComponent, canActivate: [authGuard] },
+  { path: 'brands', component: BrandsComponent, canActivate: [authGuard] },
   { path: '**', redirectTo: 'brands', pathMatch: 'full' },
 ];
 @NgModule({

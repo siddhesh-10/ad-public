@@ -2,21 +2,35 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Amplify } from 'aws-amplify';
 import { signUp, signIn, signOut, confirmSignUp, resetPassword, confirmResetPassword, getCurrentUser, fetchUserAttributes } from 'aws-amplify/auth';
+import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CognitoService {
-  private authenticationSubject: BehaviorSubject<any>;
+ public authenticationSubject: BehaviorSubject<any>;
 
-  constructor() {
+  private clientId = '824786634927-rdli0bpl7pnu7cuisvl25r7607if5j3e.apps.googleusercontent.com';
+  constructor(
+    private router: Router
+  ) {
+    
     Amplify.configure({
       Auth: {
         Cognito: {
           userPoolId: environment.cognito.userPoolId,
           userPoolClientId: environment.cognito.clientId,
-          signUpVerificationMethod: 'code'
+          signUpVerificationMethod: 'code',
+          loginWith: {
+            oauth: {
+              domain: environment.cognito.domain,
+              scopes: ['email', 'profile', 'openid'],
+              redirectSignIn: [environment.cognito.redirectSignIn],
+              redirectSignOut: [environment.cognito.redirectSignOut],
+              responseType: 'code'
+            }
+          }
         }
       }
     });
@@ -60,13 +74,15 @@ export class CognitoService {
   public async signIn(email: string, password: string): Promise<any> {
     try {
       const result = await signIn({
-        username: email,
-        password
+          username: email,
+          password
       });
       this.authenticationSubject.next(true);
+      await this.router.navigate(['/home']);
       return result;
     } catch (error) {
-      throw error;
+        this.authenticationSubject.next(false);
+        throw error;
     }
   }
 
@@ -111,8 +127,12 @@ export class CognitoService {
     }
   }
 
-
-  public isAuthenticated(): Observable<boolean> {
-    return this.authenticationSubject.asObservable();
+  public async isAuthenticated(): Promise<boolean> {
+    try {
+      await getCurrentUser();
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }
