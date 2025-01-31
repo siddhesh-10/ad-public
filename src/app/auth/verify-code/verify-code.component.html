@@ -1,48 +1,24 @@
-
-<div class="auth-container">
-    <div class="form-section">
-      <div class="back-link">
-        <a href="javascript:void(0)" routerLink="/login">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 18L9 12L15 6" stroke="#1C1B1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Back to login
-        </a>
-      </div>
-  
-      <h2>Verify code</h2>
-      <p class="auth-subtext">An authentication code has been sent to your email.</p>
-      
-      <form [formGroup]="verifyCodeForm" (ngSubmit)="onSubmit()">
-        <div class="input-group">
-          <label for="code">Verification Code</label>
-          <input 
-            type="text" 
-            formControlName="code" 
-            id="code" 
-            placeholder="Enter verification code"
-          />
-          <div class="error-message" *ngIf="verifyCodeForm.get('code')?.touched && verifyCodeForm.get('code')?.errors?.['required']">
-            Verification code is required
+<div class="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+    <div class="w-half max-w-4xl bg-gray-800 rounded-2xl shadow-xl flex flex-col md:flex-row">
+      <div class="w-full  p-8 lg:p-12">
+        <h2 class="text-3xl font-bold text-gray-100 text-center">Verify Code</h2>
+        <p class="text-gray-400 text-center mt-2">An authentication code has been sent to your email.</p>
+        
+        <form [formGroup]="verifyCodeForm" (ngSubmit)="onSubmit()" class="space-y-4 mt-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Verification Code</label>
+            <input type="text" formControlName="code" placeholder="Enter verification code" 
+                   class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:ring-2 focus:ring-blue-500"/>
+            <div *ngIf="verifyCodeForm.get('code')?.touched && verifyCodeForm.get('code')?.errors?.['required']" class="text-red-400 text-sm mt-1">
+              Verification code is required.
+            </div>
           </div>
-        </div>
-      
-        <div class="resend-code">
-          <span>Didn't receive a code?</span>
-          <a href="javascript:void(0)" (click)="resendCode()">Resend</a>
-        </div>
-      
-        <button type="submit" class="primary-button" [disabled]="verifyCodeForm.invalid || loading">
-          {{ loading ? 'Verifying code...' : 'Verify Code' }}
-        </button>
-      
-        <div class="error-message" *ngIf="errorMessage">
-          {{ errorMessage }}
-        </div>
-      </form>
-    </div>
-  
-    <div class="image-section">
-      <img src="assets/images/login.jpg" alt="Verify Code" class="auth-image" />
+          
+          <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all"
+                  [disabled]="verifyCodeForm.invalid || loading">
+            {{ loading ? 'Verifying code...' : 'Verify Code' }}
+          </button>
+        </form>
+      </div>
     </div>
   </div>

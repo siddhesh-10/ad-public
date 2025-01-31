@@ -32,15 +32,8 @@ export class VerifyCodeComponent {
   }
 
   ngOnInit(): void {
-
-    this.route.queryParams.subscribe(params => {
-      this.email = params['email'] || '';
-      this.isSignup = params['isSignup'];
-      console.log('email: ',this.email);
-      if (!this.email) {
-        this.errorMessage = 'Email is missing. Please go back to signup and try again.';
-      }
-    });
+    this.email = this.cognitoService.verifyCodeEmail;
+    this.isSignup = this.cognitoService.verifyCodeFromSignup;
   }
 
   async onSubmit(): Promise<void> {
@@ -63,16 +56,14 @@ export class VerifyCodeComponent {
     try {
       // Call the confirmSignUp function from CognitoService
       if(this.isSignup){
-        console.log('calleddddddddddddddddddddd');
         await this.cognitoService.confirmSignUp(this.email, code);
         // Navigate to the home or login page after successful verification
         this.router.navigate(['/login']);
       }else{
         // Navigate to the home or login page after successful verification
-        this.router.navigate(['/setpassword'],{ 
-          queryParams: { email: this.email, code:code}
-        }
-        );
+        this.cognitoService.setPasswordEmail = this.email;
+        this.cognitoService.setPasswordCode = code;
+        this.router.navigate(['/set-password']);
       }
       
 

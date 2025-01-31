@@ -11,6 +11,13 @@ import { environment } from '../../../environments/environment';
 export class CognitoService {
  public authenticationSubject: BehaviorSubject<any>;
 
+ // custom variable 
+ verifyCodeEmail: string = '';
+ verifyCodeFromSignup: boolean = false;
+
+ setPasswordEmail: string = '';
+ setPasswordCode: string = '';
+
   private clientId = '824786634927-rdli0bpl7pnu7cuisvl25r7607if5j3e.apps.googleusercontent.com';
   constructor(
     private router: Router
@@ -106,6 +113,7 @@ export class CognitoService {
   }
 
   public async forgotPasswordSubmit(email: string, code: string, newPassword: string): Promise<any> {
+    console.log('forgot password submit called',email,code,newPassword);
     try {
       return await confirmResetPassword({
         username: email,

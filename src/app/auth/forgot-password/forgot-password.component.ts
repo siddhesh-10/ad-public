@@ -38,9 +38,9 @@ export class ForgotPasswordComponent {
         await this.cognitoService.forgotPassword(email);
         this.successMessage = 'A password reset link has been sent to your email.';
         setTimeout(() => {
-          this.router.navigate(['/verifycode'], {
-            queryParams: { email: email },
-          });
+          this.cognitoService.verifyCodeEmail = email;
+          this.cognitoService.verifyCodeFromSignup = false;
+          this.router.navigate(['/verify-code'])
         }, 1500);
       } catch (error: any) {
         this.errorMessage = error.message || 'An error occurred while sending the reset link.';

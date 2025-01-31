@@ -91,10 +91,9 @@ export class LoginSignupComponent {
       try {
         const { email,  phoneNumber,password, userName } = this.signupForm.value;
         await this.cognitoService.signUp(phoneNumber,email, password, userName);
-   
-        this.router.navigate(['/verify-code'], { 
-          queryParams: { email: userName,isSignup:true }
-        });
+        this.cognitoService.verifyCodeEmail = userName;
+        this.cognitoService.verifyCodeFromSignup = true;
+        this.router.navigate(['/verify-code'])
       } catch (error: any) {
         this.errorMessage = error.message || 'An error occurred during signup';
       } finally {

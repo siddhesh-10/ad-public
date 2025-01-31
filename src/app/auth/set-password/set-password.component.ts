@@ -45,11 +45,13 @@ ngOnInit(): void {
 }
 
 async onSetPassword() {
+  console.log('set password called',this.email,this.verifyCodeForm.value);
   if (this.verifyCodeForm.valid) {
     const { password, confirmPassword } = this.verifyCodeForm.value;
     if (password === confirmPassword) {
       try{
         await this.cognitoService.forgotPasswordSubmit(this.email,this.code,password);
+        console.log('set password success');
         this.router.navigate(['/login']);
       }catch(e:any){
         this.errorMessage = e.message;
