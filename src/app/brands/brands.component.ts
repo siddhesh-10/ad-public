@@ -6,6 +6,8 @@ import { Router, RouterOutlet } from '@angular/router';
 import { BrandsHomeComponent } from "./brands-home/brands-home.component";
 import { YourAdsComponent } from "./your-ads/your-ads.component";
 import { ProfileComponent } from "./profile/profile.component";
+import { CognitoService } from "../shared/services/cognito.service";
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-brands',
@@ -16,16 +18,25 @@ import { ProfileComponent } from "./profile/profile.component";
 export class BrandsComponent {
   selectedTabIndex: number = 0;
   tabs = [
-    { label: 'Home' },
     { label: 'Your Ads' },
+    { label: 'Create a new Ad' },
     { label: 'Profile' }
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private cognitoService: CognitoService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
   onTabChange(index: number) {
     this.selectedTabIndex = index;
+  }
+  async onLogout() {
+    // Implement logout functionality here
+    // For example, clear the token or navigate to the login page
+    console.log('Logout clicked');
+    await this.cognitoService.signOut();
+    console.log('Logout successful');
+    this.router.navigate(['/auth']);
+    this.cdr.detectChanges();
   }
 }

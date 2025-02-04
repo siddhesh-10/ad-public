@@ -14,9 +14,9 @@ export class ProfileComponent {
   chart!: Chart;
 
   brand = {
-    logo: 'https://via.placeholder.com/150',
-    name: 'Luxe Cosmetics',
-    industry: 'Beauty & Personal Care'
+    logo: 'https://s3.amazonaws.com/cdn.designcrowd.com/blog/2017/April/35-Famous-Circle-Logos/19_400.png',
+    name: 'Volkswagen',
+    industry: 'Automotive and Industrial' 
   };
 
   stats = {

@@ -61,6 +61,19 @@ export class YourAdsComponent {
       applicationProgress: 100,
       requirements: ['Eco-Friendly', 'Home Decor', 'Hashtag#GreenLiving', 'Video Content'],
       deadline: new Date('2023-07-30')
+    },
+    {
+      brandName: 'Fashionista',
+      campaignName: 'New Collection Launch',
+      status: 'Pending',
+      budget: '$10,000',
+      applications: { received: 120, required: 200 },
+      daysRemaining: 18,
+      timeProgress: 36,
+      applicationProgress: (120/200)*100,
+      requirements: ['Fashion', 'Clothing', 'Hashtag#StyleInspiration', 'Instagram Reels'],
+      deadline: new Date('2023-08-15')
+      
     }
   ];
 
