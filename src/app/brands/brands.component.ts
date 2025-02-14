@@ -1,53 +1,42 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+import { BrandsHomeComponent } from "./brands-home/brands-home.component";
+import { YourAdsComponent } from "./your-ads/your-ads.component";
+import { ProfileComponent } from "./profile/profile.component";
+import { CognitoService } from "../shared/services/cognito.service";
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-brands',
-  imports: [RouterOutlet, ReactiveFormsModule, MatTabsModule],
+  imports: [RouterOutlet, ReactiveFormsModule, MatTabsModule, NgFor,NgIf, BrandsHomeComponent, YourAdsComponent, ProfileComponent],
   templateUrl: './brands.component.html',
   styleUrl: './brands.component.scss'
 })
 export class BrandsComponent {
   selectedTabIndex: number = 0;
+  tabs = [
+    { label: 'Your Ads' },
+    { label: 'Create a new Ad' },
+    { label: 'Profile' }
+  ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private cognitoService: CognitoService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    // Set the active tab based on the current route
-    const currentRoute = this.router.url.split('/')[2];
-    this.selectedTabIndex = this.getTabIndexByRoute(currentRoute);
   }
-
-  onTabChange(index: number): void {
+  onTabChange(index: number) {
     this.selectedTabIndex = index;
-    this.router.navigate(['/brands', this.getRouteByTabIndex(index)]);
   }
-
-  private getTabIndexByRoute(route: string): number {
-    switch (route) {
-      case 'your-ads':
-        return 1;
-      case 'dashboard':
-        return 2;
-      case 'profile':
-        return 3;
-      default:
-        return 0;
-    }
-  }
-
-  private getRouteByTabIndex(index: number): string {
-    switch (index) {
-      case 1:
-        return 'your-ads';
-      case 2:
-        return 'dashboard';
-      case 3:
-        return 'profile';
-      default:
-        return 'brand-home';
-    }
+  async onLogout() {
+    // Implement logout functionality here
+    // For example, clear the token or navigate to the login page
+    console.log('Logout clicked');
+    await this.cognitoService.signOut();
+    console.log('Logout successful');
+    this.router.navigate(['/auth']);
+    this.cdr.detectChanges();
   }
 }

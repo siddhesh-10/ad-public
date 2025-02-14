@@ -10,6 +10,11 @@ import { BrandsHomeComponent } from './brands/brands-home/brands-home.component'
 import { MatTabsModule } from '@angular/material/tabs';
 import { AdListComponent } from './brands/your-ads/ad-list/ad-list.component';
 import { AdDetailsComponent } from './brands/your-ads/ad-details/ad-details.component';
+import { LoginSignupComponent } from './auth/login-signup/login-signup.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { VerifyCodeComponent } from './auth/verify-code/verify-code.component';
+import { SetPasswordComponent } from './auth/set-password/set-password.component';
+import { authGuard } from './auth.guard';
 import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { UserComponent } from './user/user.component';
@@ -18,6 +23,12 @@ import { MyAdsComponent } from './user/my-ads/my-ads.component';
 import { Home2Component } from './home2-experiment/home2.component';
 
 export const routes: Routes = [
+  { path: 'auth', component: LoginSignupComponent, canActivate: [authGuard] },
+  { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [authGuard] },
+  { path: 'verify-code', component: VerifyCodeComponent, canActivate: [authGuard] },
+  { path: 'set-password', component: SetPasswordComponent, canActivate: [authGuard] },
+  { path: 'brands', component: BrandsComponent, canActivate: [authGuard] },
+  { path: '**', redirectTo: 'brands', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'how', component: HowItWorksComponent },
   {

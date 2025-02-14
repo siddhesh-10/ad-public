@@ -1,9 +1,56 @@
+<div class="flex flex-col">
+  <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%] bg-gray-800 shadow-lg rounded-2xl px-6 py-3 flex items-center justify-between z-50">
+    
+    <!-- Logo -->
+    <div class="text-white text-lg font-semibold flex items-center"> 
+      
+      <img src="../../assets/images/image.png" class="w-9 h-9 mr-2 px-0.5 py-0.5 bg-white "  alt=""> 
+      <span class="text-white text-lg font-semibold ml-2 text-white">zustt</span>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="hidden md:flex space-x-2">
+      <button
+        *ngFor="let tab of tabs; let i = index"
+        (click)="onTabChange(i)"
+        [id]="'tab-' + i"
+        role="tab"
+        [attr.aria-selected]="selectedTabIndex === i"
+        class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+        [class.bg-gray-900]="selectedTabIndex === i"
+        [class.text-white]="selectedTabIndex === i"
+        [class.text-gray-300]="selectedTabIndex !== i"
+        [class.hover:bg-gray-700]="selectedTabIndex !== i"
+        [class.hover:text-white]="selectedTabIndex !== i"
+      >
+        {{ tab.label }}
+      </button>
+    </div>
+    
+    <!-- Logout Button -->
+    <button class="bg-white text-gray-800 px-4 py-2 rounded-lg text-sm font-medium shadow-md transition-all hover:bg-gray-200" (click)="onLogout()">
+      Logout
+    </button>
+  </nav>
 
-<mat-tab-group (selectedIndexChange)="onTabChange($event)" [selectedIndex]="selectedTabIndex">
-  <mat-tab label="Home"></mat-tab>
-  <mat-tab label="Your Ads"></mat-tab>
-  <mat-tab label="Dashboard"></mat-tab>
-  <mat-tab label="Profile"></mat-tab>
-</mat-tab-group>
-
-<router-outlet></router-outlet>
+  <!-- Content panels -->
+  <div class="bg-gray-900 min-h-screen pt-20">
+    <div *ngFor="let tab of tabs; let i = index" 
+         [id]="'panel-' + i"
+         role="tabpanel"
+         [attr.aria-labelledby]="'tab-' + i"
+         class="p-8 text-gray-300"
+         [class.hidden]="selectedTabIndex !== i">
+      
+      <div *ngIf="i === 0" class="max-w-7xl mx-auto"> 
+        <app-your-ads></app-your-ads>      
+      </div>
+      <div *ngIf="i === 1" class="max-w-7xl mx-auto"> 
+        <app-brands-home></app-brands-home>      
+      </div>
+      <div *ngIf="i === 2" class="max-w-7xl mx-auto"> 
+        <app-profile></app-profile>      
+      </div>
+    </div>
+  </div>
+</div>
