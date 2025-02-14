@@ -23,6 +23,23 @@ export const authGuard: CanActivateFn = (route, state) => {
         return false;
       }
 
+      // If the route requires specific roles, check them
+     /* const expectedRoles: string[] | undefined = route.data['expectedRoles'];
+      if (expectedRoles && expectedRoles.length > 0) {
+        // Assume cognitoService.getUserRole() returns a Promise or Observable with the user's role
+        return from(cognitoService.getUserRole()).pipe(
+          map(userRole => {
+            if (expectedRoles.includes(userRole)) {
+              return true;
+            } else {
+              // Optionally redirect to a not-authorized page
+              router.navigate(['/not-authorized']);
+              return false;
+            }
+          })
+        );
+      } */
+
       return true;
     })
   );

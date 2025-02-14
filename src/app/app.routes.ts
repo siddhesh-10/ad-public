@@ -1,6 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { HowItWorksComponent } from './home/how-it-works/how-it-works.component';
 import { BrandsComponent } from './brands/brands.component';
 import { YourAdsComponent } from './brands/your-ads/your-ads.component';
 import { ProfileComponent } from './brands/profile/profile.component';
@@ -23,43 +22,53 @@ import { MyAdsComponent } from './user/my-ads/my-ads.component';
 import { Home2Component } from './home2-experiment/home2.component';
 
 export const routes: Routes = [
+  // Public Routes (No Auth Guard)
+  { path: 'home', component: HomeComponent },
+  { path: 'home2', component: Home2Component },
+
+  {
+    path: 'user',
+    component: UserComponent,
+   // canActivate: [authGuard],
+    //data: { expectedRoles: ['user'] },
+    children: [
+      { path: 'user-home', component: UserHomeComponent },
+      { path: 'my-ads', component: MyAdsComponent },
+      { path: 'user-dashboard', component: UserDashboardComponent },
+      { path: 'user-profile', component: UserProfileComponent },
+      { path: '', redirectTo: 'user-home', pathMatch: 'full' }
+    ]
+  },
+
+  // Auth Routes (Protected)
   { path: 'auth', component: LoginSignupComponent, canActivate: [authGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [authGuard] },
   { path: 'verify-code', component: VerifyCodeComponent, canActivate: [authGuard] },
   { path: 'set-password', component: SetPasswordComponent, canActivate: [authGuard] },
-  { path: 'brands', component: BrandsComponent, canActivate: [authGuard] },
-  { path: '**', redirectTo: 'brands', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'how', component: HowItWorksComponent },
+
+  // Protected Brand Routes
   {
-    path: 'brands', component: BrandsComponent,
+    path: 'brands',
+    component: BrandsComponent,
+    canActivate: [authGuard], // Apply authGuard at parent level
+    //data: { expectedRoles: ['brand'] },
     children: [
       { path: 'brand-home', component: BrandsHomeComponent },
       {
         path: 'your-ads',
         component: YourAdsComponent,
         children: [
-          { path: '', component: AdListComponent }, // Default route: show all ads
-          { path: 'ad-details/:adId', component: AdDetailsComponent }, // Show details of a specific ad
-        ],
-      }, 
+          { path: '', component: AdListComponent }, // Default: Show all ads
+          { path: 'ad-details/:adId', component: AdDetailsComponent } // Specific ad details
+        ]
+      },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'profile', component: ProfileComponent },
-    ],
-},
-{
-  path: 'user',
-  component: UserComponent,
-  children: [
-    { path: 'user-home', component: UserHomeComponent },
-    { path: 'my-ads', component: MyAdsComponent },
-    { path: 'user-dashboard', component: UserDashboardComponent },
-    { path: 'user-profile', component: UserProfileComponent },
-    { path: '', redirectTo: 'user-home', pathMatch: 'full' }
-  ]
-},
-  { path: 'home2', component: Home2Component },
-  { path: '**', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'profile', component: ProfileComponent }
+    ]
+  },
+
+  // Wildcard Route (Final Catch-All)
+  { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes), MatTabsModule],
