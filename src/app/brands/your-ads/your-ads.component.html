@@ -1,6 +1,83 @@
-<p>your-ads works!</p>
-<div class="your-ads-container">
-  <h1>Your Ads</h1>
-</div>
-  <router-outlet></router-outlet>
+<div class="min-h-screen bg-gray-900 p-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Ad Card -->
+    <div *ngFor="let ad of ads" class="bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-700/50 hover:border-gray-600 transition-all">
+      <!-- Card Header -->
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <h2 class="text-2xl font-bold text-gray-100 mb-1">{{ad.brandName}}</h2>
+          <p class="text-gray-400 text-sm">{{ad.campaignName}}</p>
+        </div>
+        <span class="px-3 py-1 rounded-full text-sm font-medium" 
+              [ngClass]="{
+                'bg-green-500/20 text-green-400': ad.status === 'Active',
+                'bg-yellow-500/20 text-yellow-400': ad.status === 'Pending',
+                'bg-red-500/20 text-red-400': ad.status === 'Completed'
+              }">
+          {{ad.status}}
+        </span>
+      </div>
 
+      <!-- Metrics Grid -->
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="space-y-1">
+          <span class="block text-xs text-gray-400">Total Budget</span>
+          <span class="block text-xl font-semibold text-green-400">{{ad.budget}}</span>
+        </div>
+        <div class="space-y-1">
+          <span class="block text-xs text-gray-400">Applications</span>
+          <span class="block text-xl font-semibold text-blue-400">
+            {{ad.applications.received}}/{{ad.applications.required}}
+          </span>
+        </div>
+      </div>
+
+      <!-- Progress Bars -->
+      <div class="space-y-4">
+        <div>
+          <div class="flex justify-between text-xs text-gray-400 mb-1">
+            <span>Time Remaining</span>
+            <span>{{ad.daysRemaining}} days left</span>
+          </div>
+          <div class="h-2 bg-gray-700 rounded-full">
+            <div class="h-2 bg-blue-500 rounded-full" [style.width.%]="ad.timeProgress"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-xs text-gray-400 mb-1">
+            <span>Application Progress</span>
+            <span>{{ad.applications.received}}/{{ad.applications.required}}</span>
+          </div>
+          <div class="h-2 bg-gray-700 rounded-full">
+            <div class="h-2 bg-green-500 rounded-full" [style.width.%]="ad.applicationProgress"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Requirements & Actions -->
+      <div class="mt-6 pt-4 border-t border-gray-700/50">
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span *ngFor="let req of ad.requirements" 
+                class="px-2 py-1 bg-gray-700/50 text-gray-300 rounded-lg text-xs">
+            {{req}}
+          </span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-gray-400">
+            Deadline: {{ad.deadline | date}}
+          </span>
+          <div class="flex gap-2">
+            <button class="px-3 py-1.5 text-sm bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg transition-colors">
+              Analytics
+            </button>
+            <button class="px-3 py-1.5 text-sm bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded-lg transition-colors">
+              Manage
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
