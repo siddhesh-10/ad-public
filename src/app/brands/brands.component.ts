@@ -18,10 +18,11 @@ import { ChangeDetectorRef } from '@angular/core';
 export class BrandsComponent {
   selectedTabIndex: number = 0;
   tabs = [
-    { label: 'Your Ads' },
-    { label: 'Create a new Ad' },
-    { label: 'Profile' }
+    { label: 'Your Ads', icon: 'campaign' }, 
+    { label: 'Create a new Ad', icon: 'add_circle' }, 
+    { label: 'Profile & Dashboard', icon: 'person' }
   ];
+  
 
   constructor(private router: Router, private cognitoService: CognitoService, private cdr: ChangeDetectorRef) { }
 

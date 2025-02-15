@@ -10,78 +10,169 @@ $gradient: linear-gradient(135deg, $primary-color, $secondary-color);
 $gradient-header: linear-gradient(135deg, $primary-color-header, $secondary-color);
 $shadow-color: rgba(255, 158, 158, 0.2); // Rose shadow
 
+// $primary-color: #5A67D8;            // A vibrant indigo
+// $secondary-color: #9F7AEA;          // A soft, complementary purple
+
+// Header & Accent Colors: For headings, buttons, and special highlights
+// $primary-color-header: #4C51BF;     // A deep indigo/blue for headers
+// $accent-color: #38B2AC;             // A fresh teal accent
+
+// Background & Text Colors
+// $background-dark: #d59ddf;          // A very light gray (almost white) for container backgrounds
+// $text-dark: #2D3748;                // A modern, dark slate for primary text
+// $text-light: #e6c1c1;               // White for text on dark backgrounds
+
+// // Gradients
+// $gradient: linear-gradient(135deg, $primary-color, $secondary-color);
+// $gradient-header: linear-gradient(135deg, $primary-color-header, $secondary-color);
+
+// // Shadow (optional)
+// $shadow-color: rgba(90, 103, 216, 0.2);
+// .background-grid {
+//   position: absolute;
+//   inset: 0;
+//   // z-index: -10;
+//   height: 100%;
+//   width: 100%;
+//   background-color: $background-dark;
+//   background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+//   background-size: 16px 16px;
+// }
+
+
 // Global Styles
 .home2-container {
   background-color: $background-dark;
   color: $text-dark;
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
+  background-image: radial-gradient(circle 800px at 100% 200px, #d5c5ff, transparent);
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
 // Hero Section
 .hero-section {
+  width: 100%;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 2rem;
   position: relative;
-  background: linear-gradient(to bottom, $background-dark, darken($background-dark, 3%));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  background-image: 
+    linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+    linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+  background-size: 6rem 4rem;
 
-  .hero-content {
-    max-width: 600px;
-    z-index: 2;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0; // equivalent to top: 0, right: 0, bottom: 0, left: 0
+    background: radial-gradient(circle 800px at 100% 200px, #d5c5ff, transparent);
+    z-index: 0;
+  }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  // max-width: 1200px;
+  padding: 2rem;
+  padding-top: 0;
+  text-align: center;
+  .hero-title {
+    font-size: 4.5rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: $text-dark;
     
-    .hero-title {
-      font-size: 4.5rem;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-      color: $text-dark;
-      
-      .gradient-text {
-        background: $gradient;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-      .gradient-text2 {
-        font-family: 'Unbounded', sans-serif;
-        //background: linear-gradient(to right, #681f87, #3498db); /* Gradient colors */
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-fill-color: transparent;
-        text-align: center;
-        background: linear-gradient( to right, #8e44ad, #ffd700 5%, #8e44ad 90% ); /* Gradient with golden streak */
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-size: 200% auto;        
-        animation: move-light 10s linear infinite;
-      }
+    .gradient-text {
+      background: $gradient;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
+    .gradient-text2 {
+      font-family: 'Unbounded', sans-serif;
+      //background: linear-gradient(to right, #681f87, #3498db); /* Gradient colors */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-fill-color: transparent;
+      text-align: center;
+      background: linear-gradient( to right, #8e44ad, #ffd700 5%, #8e44ad 90% ); /* Gradient with golden streak */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;        
+      animation: move-light 10s linear infinite;
+    }
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: rgba($text-dark, 0.8);
+    margin-bottom: 2rem;
+  }
+
+  .audience-toggle {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
     
-    .hero-subtitle {
-      font-size: 1.25rem;
-      color: rgba($text-dark, 0.8);
-      margin-bottom: 2rem;
+    button {
+      min-width: 160px;
+      padding: 0.75rem 1.5rem;
+      border: 2px solid #9F7AEA;
+      border-radius: 30px;
+      background: transparent;
+      color: #4A4A4A;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &.active {
+        background: #9F7AEA;
+        color: white;
+      }
+      
+      &:hover:not(.active) {
+        background: rgba(159, 122, 234, 0.1);
+      }
     }
   }
 
-  .hero-image {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50%;
-    z-index: 1;
-    
-    .gradient-overlay {
-      background: linear-gradient(90deg, $background-dark 0%, transparent 100%);
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+
+    button {
+      min-width: 160px;
     }
+  }
+}
+
+.hero-image {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50%;
+  z-index: 1;
+  
+  .gradient-overlay {
+    background: linear-gradient(90deg, $background-dark 0%, transparent 100%);
   }
 }
 
 // Buttons
 .primary-button {
   padding: 1rem 2rem;
-  background: $gradient;
+  background: #9F7AEA;
   border: none;
   border-radius: 8px;
   color: $text-light;
@@ -98,7 +189,7 @@ $shadow-color: rgba(255, 158, 158, 0.2); // Rose shadow
 .secondary-button {
   padding: 1rem 2rem;
   background: transparent;
-  border: 2px solid $primary-color;
+  border: 2px solid #9F7AEA;
   border-radius: 8px;
   color: $text-dark;
   font-weight: 600;
@@ -113,13 +204,54 @@ $shadow-color: rgba(255, 158, 158, 0.2); // Rose shadow
 
 // Trusted By Section
 .trusted-by {
-  padding: 4rem 2rem;
-  text-align: center;
-  background: rgba($primary-color, 0.05);
+  // padding: 4rem 2rem;
+  position: relative;
+  overflow: hidden;
   
-  h2 {
-    color: $text-dark;
-    opacity: 0.9;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -10;
+    height: 100%;
+    width: 100%;
+    background: white;
+    background: radial-gradient(125% 125% at 50% 10%, #fff 40%, #6633ee 100%);
+  }
+
+  .trusted-by-content {
+    // max-width: 1200px;
+    // margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+    
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 3rem;
+      color: #2D3748;
+    }
+  }
+
+  .logo-carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+    
+    .logo-item {
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+      
+      &:hover {
+        opacity: 1;
+      }
+      
+      img {
+        height: 40px;
+        width: auto;
+      }
+    }
   }
 }
 
@@ -150,6 +282,7 @@ $shadow-color: rgba(255, 158, 158, 0.2); // Rose shadow
   h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    font-weight: bold;
     background: $gradient-header;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -174,12 +307,13 @@ $shadow-color: rgba(255, 158, 158, 0.2); // Rose shadow
 
 .feature-card {
   // background: #83cdb8;
-  background: $background-dark;
+  background: #1c2639 ;
   padding: 2rem;
   border-radius: 20px;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  color: $text-light;
   
   &::before {
     content: '';
@@ -189,8 +323,8 @@ $shadow-color: rgba(255, 158, 158, 0.2); // Rose shadow
     width: 100%;
     height: 100%;
     background: linear-gradient(45deg, 
-      rgba($primary-color, 0.1),
-      rgba($secondary-color, 0.1)
+      rgba(#6d7d9e, 0.1),
+      rgba(#010610 , 0.1)
     );
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -225,11 +359,11 @@ $shadow-color: rgba(255, 158, 158, 0.2); // Rose shadow
   h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: $text-dark;
+    color: azure;
   }
   
   p {
-    color: rgba($text-dark, 0.8);
+    color: rgba($text-light, 0.8);
     line-height: 1.6;
   }
 }
@@ -255,7 +389,10 @@ $shadow-color: rgba(255, 158, 158, 0.2); // Rose shadow
 .step {
   position: relative;
   padding: 2rem;
-  background: $background-dark;
+  // background: $background-dark;
+  background-color: white;
+  background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+  background-size: 16px 16px;
   border-radius: 20px;
   transition: all 0.3s ease;
   
@@ -323,14 +460,36 @@ $shadow-color: rgba(255, 158, 158, 0.2); // Rose shadow
 
 // CTA Section
 .cta-section {
-  background: $gradient;
+  // background: $gradient;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  // padding: 60px 20px;
+  // background: linear-gradient(135deg, $gradient, $background-dark); /* Beautiful Gradient */
+  // color: white;
+  border-radius: 10px;
+  // margin: 40px auto;
+  // box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
   
   .primary-button {
-    background: $text-light;
-    color: $primary-color;
+    // background: $text-light;
+    // color: $primary-color;
+    background-color: #5A67D8;
+    color: azure;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 5px 15px rgba(67, 111, 214, 0.4);
     
     &:hover {
-      background: darken($text-light, 5%);
+      // background: darken($text-light, 5%);
+      background-color: #9998f5;
+      transform: scale(1.05);
     }
   }
 }
@@ -358,10 +517,11 @@ $shadow-color: rgba(255, 158, 158, 0.2); // Rose shadow
   
   .cta-buttons {
     flex-direction: column;
-    gap: 1rem;
+    // gap: 2rem;
+    justify-content: center;
     
     .secondary-button {
-      margin-left: 0;
+      padding: 2rem;
     }
   }
   
@@ -381,6 +541,19 @@ $shadow-color: rgba(255, 158, 158, 0.2); // Rose shadow
       text-align: left;
     }
   }
+
+  .hero-content {
+    .audience-toggle, .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+      
+      button {
+        width: 100%;
+        max-width: 200px;
+        margin: 0.5rem 0;
+      }
+    }
+  }
 }
 
 @keyframes move-light {
@@ -390,5 +563,73 @@ $shadow-color: rgba(255, 158, 158, 0.2); // Rose shadow
 
   100% {
     background-position: -200% center;
+  }
+}
+
+// Audience Toggle
+.audience-toggle {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  
+  button {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #9F7AEA;
+    border-radius: 30px;
+    background: transparent;
+    color: #4A4A4A;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &.active {
+      background: #9F7AEA;
+      color: white;
+    }
+    
+    &:hover:not(.active) {
+      background: rgba(159, 122, 234, 0.1);
+    }
+  }
+}
+
+// Who We Are Section
+.who-we-are {
+  padding: 6rem 2rem;
+  background: white;
+  position: relative;
+  
+  .section-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      background: $gradient-header;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: rgba($text-dark, 0.8);
+      margin-bottom: 2rem;
+    }
+    
+    .learn-more-link {
+      display: inline-block;
+      color: #9F7AEA;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateX(5px);
+      }
+    }
   }
 }

@@ -1,32 +1,49 @@
 <div class="home2-container">
-  <!-- Hero Section -->
+    <!-- Hero Section with Audience Toggle -->
   <section class="hero-section">
     <div class="hero-content">
+      <div class="audience-toggle">
+        <button [class.active]="selectedAudience === 'brand'" (click)="setAudience('brand')">I Am a Brand</button>
+        <button [class.active]="selectedAudience === 'influencer'" (click)="setAudience('influencer')">I Am an Influencer</button>
+      </div>
       <h1 class="hero-title">
-        <!-- <span class="gradient-text">Automate</span> your influencer selection -->
-         Where <span class="gradient-text2">Influencers</span> Meet <span class="gradient-text">Brands</span> Creatively
+        <ng-container *ngIf="selectedAudience === 'brand'">
+          Connect with Top <span class="gradient-text2">Influencers</span> to Elevate Your <span class="gradient-text">Campaigns</span>
+        </ng-container>
+        <ng-container *ngIf="selectedAudience === 'influencer'">
+          Unlock High-Paying <span class="gradient-text">Brand</span> <span class="gradient-text2">Collaborations</span>
+        </ng-container>
       </h1>
       <p class="hero-subtitle">
-        Empowering brands and influencers with a seamless platform to create impactful advertising campaigns.      </p>
+        {{ selectedAudience === 'brand' 
+          ? 'Find and collaborate with authentic influencers who align with your brand values'
+          : 'Connect with brands that value your authentic voice and creative content' }}
+      </p>
       <div class="cta-buttons">
-        <button class="primary-button">Join Waitlist</button>
-        <button class="secondary-button">Learn More</button>
+        <button class="primary-button">Get Early Access</button>
+        <button class="secondary-button" routerLink="/blogs">Learn More</button>
       </div>
     </div>
-    <div class="hero-image">
+    <!-- <div class="hero-image">
       <img src="assets/images/hero-img.webp" alt="Hero illustration">
       <div class="gradient-overlay"></div>
-    </div>
+    </div> -->
   </section>
 
-  <!-- Trusted By Section -->
-  <section class="trusted-by">
-    <h2>Trusted by leading brands</h2>
-    <div class="logo-carousel">
-      <!-- Add company logos here -->
-      <img src="assets/logos/company1.png" alt="Company 1">
-      <img src="assets/logos/company2.png" alt="Company 2">
-      <!-- Add more logos -->
+  <!-- Trusted By Section with improved design -->
+  <section class="trusted-by ">
+    <div class="trusted-by-content bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
+      <h2>Trusted by Leading Brands</h2>
+      <div class="logo-carousel">
+        <!-- Add placeholder logos with proper styling -->
+        <div class="logo-item">
+          <img src="assets/logos/techcrunch.svg" alt="TechCrunch">
+        </div>
+        <div class="logo-item">
+          <img src="assets/logos/forbes.svg" alt="Forbes">
+        </div>
+        <!-- Add more logos as needed -->
+      </div>
     </div>
   </section>
 
@@ -34,118 +51,61 @@
   <section class="features-section">
     <div class="section-header">
       <h2>Why Choose Us</h2>
-      <p>Experience the future of influencer marketing</p>
+      <p>{{ getSectionSubheading() }}</p>
     </div>
     <div class="features-grid">
-      <div class="feature-card">
+      <div class="feature-card" *ngFor="let card of featureCards[selectedAudience]">
         <div class="feature-icon">
-          <img src="assets/icons/ai.svg" alt="AI Icon">
+          <mat-icon [fontIcon]="card.icon"></mat-icon>
         </div>
-        <h3>AI-Powered Matching</h3>
-        <p>Our advanced AI algorithm ensures perfect brand-influencer matches</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <img src="assets/icons/analytics.svg" alt="Analytics Icon">
-        </div>
-        <h3>Real-time Analytics</h3>
-        <p>Track campaign performance with detailed insights and metrics</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <img src="assets/icons/secure.svg" alt="Security Icon">
-        </div>
-        <h3>Secure Platform</h3>
-        <p>End-to-end encryption and secure payment processing</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <img src="assets/icons/automation.svg" alt="Automation Icon">
-        </div>
-        <h3>Smart Automation</h3>
-        <p>Automate campaign management and influencer outreach</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <img src="assets/icons/community.svg" alt="Community Icon">
-        </div>
-        <h3>Vibrant Community</h3>
-        <p>Join a network of successful brands and influencers</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <img src="assets/icons/support.svg" alt="Support Icon">
-        </div>
-        <h3>24/7 Support</h3>
-        <p>Dedicated support team to help you succeed</p>
+        <h3>{{ card.title }}</h3>
+        <p>{{ card.description }}</p>
       </div>
     </div>
   </section>
-
+  
+  
   <!-- How It Works Section -->
   <section class="how-it-works">
     <div class="section-header">
-      <h2>How It Works</h2>
+      <h2>{{ getHowItWorksHeading() }}</h2>
       <p>Four simple steps to get started</p>
     </div>
     <div class="steps-container">
-      <div class="step">
-        <div class="step-number">01</div>
+      <div class="step" *ngFor="let step of workSteps[selectedAudience]">
+        <div class="step-number">{{ step.number }}</div>
         <div class="step-content">
-          <h3>Create Your Profile</h3>
-          <p>Sign up and complete your brand or influencer profile with detailed information</p>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.description }}</p>
           <ul class="step-features">
-            <li>Custom branding options</li>
-            <li>Portfolio showcase</li>
-            <li>Social media integration</li>
-          </ul>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-number">02</div>
-        <div class="step-content">
-          <h3>Set Your Preferences</h3>
-          <p>Define your target audience, budget, and campaign goals</p>
-          <ul class="step-features">
-            <li>Detailed targeting options</li>
-            <li>Flexible budget settings</li>
-            <li>Campaign objectives</li>
-          </ul>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-number">03</div>
-        <div class="step-content">
-          <h3>Get Matched</h3>
-          <p>Our AI matches you with the perfect partners for your campaign</p>
-          <ul class="step-features">
-            <li>Smart matching algorithm</li>
-            <li>Compatibility scoring</li>
-            <li>Previous success analysis</li>
-          </ul>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-number">04</div>
-        <div class="step-content">
-          <h3>Launch & Monitor</h3>
-          <p>Start your campaign and track real-time performance</p>
-          <ul class="step-features">
-            <li>Live analytics dashboard</li>
-            <li>Performance metrics</li>
-            <li>ROI tracking</li>
+            <li *ngFor="let point of step.bulletPoints">{{ point }}</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
-
+ <!-- Who We Are Section -->
+ <section class="who-we-are">
+  <div class="section-content">
+    <h2>Backed by Experts in AI & Marketing</h2>
+    <p>
+      Built by IIT Bombay students, Alumni & Industry Leaders.We are a passionate team of tech innovators and marketing experts revolutionizing 
+      the influencer marketing space. Our diverse experience in AI, digital media, and 
+      startup ecosystems drives our mission to create fair, transparent, and high-impact campaigns.
+    </p>
+    <a href="/team" class="learn-more-link">Meet the Team →</a>
+  </div>
+</section>
   <!-- CTA Section -->
   <section class="cta-section">
-    <div class="cta-content">
+    <div class="center inset-0  h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]">
+    <div class="ctaw-content">
       <h2>Ready to Transform Your Marketing?</h2>
       <p>Join thousands of brands and influencers already using our platform</p>
       <button class="primary-button">Get Started Now</button>
     </div>
+  </div>
   </section>
+  
+ 
 </div> 

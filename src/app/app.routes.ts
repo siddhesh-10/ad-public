@@ -20,11 +20,17 @@ import { UserComponent } from './user/user.component';
 import { UserHomeComponent } from './user/user-home/user-home.component';
 import { MyAdsComponent } from './user/my-ads/my-ads.component';
 import { Home2Component } from './home2-experiment/home2.component';
+import { MeetTeamComponent } from './pages/meet-team/meet-team.component';
+import { BlogsComponent } from './pages/blogs/blogs.component';
+import { BlogDetailComponent } from './pages/blogs/blog-detail/blog-detail.component';
 
 export const routes: Routes = [
   // Public Routes (No Auth Guard)
   { path: 'home', component: HomeComponent },
   { path: 'home2', component: Home2Component },
+  { path: 'team', component: MeetTeamComponent },
+  { path: 'blogs', component: BlogsComponent },
+  { path: 'blog/:id', component: BlogDetailComponent },
 
   {
     path: 'user',
@@ -67,6 +73,7 @@ export const routes: Routes = [
     ]
   },
 
+  
   // Wildcard Route (Final Catch-All)
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];

@@ -1,0 +1,27 @@
+<section class="team-page">
+  <div class="hero-section">
+    <h1>Meet Our Team</h1>
+    <p>The experts behind our innovative platform</p>
+  </div>
+
+  <div class="team-grid">
+    <div class="team-member" *ngFor="let member of teamMembers">
+      <div class="member-image">
+        <img [src]="member.image" [alt]="member.name">
+      </div>
+      <div class="member-info">
+        <h3>{{ member.name }}</h3>
+        <h4>{{ member.role }}</h4>
+        <p>{{ member.bio }}</p>
+        <div class="social-links">
+          <a *ngIf="member.socialLinks.linkedin" [href]="member.socialLinks.linkedin" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a *ngIf="member.socialLinks.twitter" [href]="member.socialLinks.twitter" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 
