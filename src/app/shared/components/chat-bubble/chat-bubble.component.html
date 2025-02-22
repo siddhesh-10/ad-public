@@ -1,0 +1,86 @@
+<div class="fixed bottom-8 right-8 z-50">
+  <!-- Chat Bubble Button -->
+  <button 
+    *ngIf="!isOpen"
+    (click)="toggleChat()"
+    class="chat-bubble-btn"
+  >
+    <i class="material-icons">chat</i>
+  </button>
+
+  <!-- Chat Interface -->
+  <div *ngIf="isOpen" 
+       class="chat-interface"
+       [class.translate-y-0]="isOpen"
+       [class.translate-y-full]="!isOpen">
+    <!-- Chat Header -->
+    <div class="chat-header">
+      <h3 class="text-lg font-semibold text-white">Ad Form Assistant</h3>
+      <button (click)="toggleChat()" class="close-btn">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+
+    <!-- Chat Messages -->
+    <div #chatContainer class="chat-messages" (scroll)="onScroll($event)">
+      <div *ngFor="let message of messages" 
+           [ngClass]="{'flex justify-end': message.sender === 'user', 
+                      'flex justify-start': message.sender === 'system'}">
+        <div [ngClass]="message.sender === 'user' ? 'user-message' : 'system-message'">
+          <!-- Regular message -->
+          <div *ngIf="!message.isJson">
+            <p>{{ message.content }}</p>
+          </div>
+
+          <!-- JSON message -->
+          <div *ngIf="message.isJson" class="json-content">
+            <div class="json-fields">
+              <div *ngFor="let field of formatJsonResponse(message.content)" 
+                   class="json-field">
+                <span class="field-name">{{ field.key }}:</span>
+                <span class="field-value">{{ field.value }}</span>
+              </div>
+            </div>
+            <button *ngIf="message.isJson && message.sender === 'system'"
+                    (click)="applyToForm()"
+                    class="apply-button">
+              Apply to Form
+              <i class="material-icons">arrow_forward</i>
+            </button>
+          </div>
+
+          <span class="message-timestamp">
+            {{ message.timestamp | date:'shortTime' }}
+          </span>
+        </div>
+      </div>
+
+      <div *ngIf="isLoading" class="loading-indicator">
+        <div class="loading-dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Input -->
+    <div class="chat-input">
+      <form (ngSubmit)="sendMessage()" class="input-form">
+        <input 
+          type="text" 
+          [(ngModel)]="newMessage"
+          name="message"
+          placeholder="Type your message..."
+          [disabled]="isLoading"
+        >
+        <button 
+          type="submit"
+          [disabled]="!newMessage.trim() || isLoading"
+        >
+          <i class="material-icons">send</i>
+        </button>
+      </form>
+    </div>
+  </div>
+</div> 

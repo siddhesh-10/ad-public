@@ -13,7 +13,7 @@
         <mat-icon>payments</mat-icon>
         <div class="stat-content">
           <h3>Total Earnings</h3>
-          <p>${{ stats.totalEarnings | number }}</p>
+          <p>Rs.{{ stats.totalEarnings | number }}</p>
         </div>
       </mat-card>
 
@@ -88,7 +88,7 @@
             <div class="activity-content">
               <h3>{{ activity.title }}</h3>
               <p class="activity-details">
-                <span *ngIf="activity.amount">${{ activity.amount | number }}</span>
+                <span *ngIf="activity.amount">Rs.{{ activity.amount | number }}</span>
                 <span *ngIf="activity.status" class="status {{ activity.status }}">
                   {{ activity.status | titlecase }}
                 </span>

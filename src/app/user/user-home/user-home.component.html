@@ -1,95 +1,186 @@
 <div class="user-home-container">
-  <!-- Promoted Ads Carousel -->
-  <section class="promoted-ads" *ngIf="promotedAds.length > 0">
-    <h2>Featured Opportunities</h2>
-    <div class="carousel-container">
-      <div class="carousel-track">
-        <mat-card class="ad-card promoted" *ngFor="let ad of promotedAds" (click)="showAdDetails(ad, $event)">
+  <!-- Featured Opportunities -->
+  <section class="mb-12">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">
+      Featured Opportunities
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div *ngFor="let opportunity of featuredOpportunities" 
+           class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:transform hover:scale-105 transition-all cursor-pointer">
+        <!-- Card Header with Brand Info -->
+        <div class="relative">
+          <img [src]="opportunity.coverImage" class="w-full h-48 object-cover" [alt]="opportunity.title">
+          <div class="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm">
+            {{ opportunity.category }}
+          </div>
+        </div>
+        
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+                {{ opportunity.title }}
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">
+                {{ opportunity.description }}
+              </p>
+            </div>
+            <img [src]="opportunity.brandLogo" class="w-12 h-12 rounded-full" [alt]="opportunity.brandName">
+          </div>
+
+          <!-- Metrics -->
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg text-center">
+              <p class="text-sm text-gray-600 dark:text-gray-400">Budget</p>
+              <p class="text-lg font-semibold text-gray-800 dark:text-white">
+                Rs{{ opportunity.budget | number }}
+              </p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg text-center">
+              <p class="text-sm text-gray-600 dark:text-gray-400">Duration</p>
+              <p class="text-lg font-semibold text-gray-800 dark:text-white">
+                {{ opportunity.duration }} days
+              </p>
+            </div>
+          </div>
+
+          <!-- Requirements -->
+          <div class="space-y-2 mb-4">
+            <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+              <i class="material-icons text-blue-500 text-base">group</i>
+              <span>{{ opportunity.minFollowers | number }}+ followers required</span>
+            </div>
+            <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+              <i class="material-icons text-blue-500 text-base">trending_up</i>
+              <span>{{ opportunity.minEngagement }}%+ engagement rate</span>
+            </div>
+          </div>
+
+          <!-- Apply Button -->
+          <button class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 
+                         text-white font-medium py-2.5 px-4 rounded-lg transition-all">
+            Apply Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Active Campaigns -->
+  <section>
+    <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">
+      Your Active Campaigns
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div *ngFor="let campaign of activeCampaigns"
+           class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+              {{ campaign.title }}
+            </h3>
+            <span [class]="getStatusClass(campaign.status)">
+              {{ campaign.status }}
+            </span>
+          </div>
+
+          <!-- Progress -->
+          <div class="mb-4">
+            <div class="flex justify-between text-sm mb-1">
+              <span class="text-gray-600 dark:text-gray-400">Progress</span>
+              <span class="text-gray-800 dark:text-white font-medium">
+                {{ campaign.progress }}%
+              </span>
+            </div>
+            <div class="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+              <div class="h-full bg-blue-500 rounded-full" 
+                   [style.width.%]="campaign.progress"></div>
+            </div>
+          </div>
+
+          <!-- Metrics Grid -->
+          <div class="grid grid-cols-3 gap-4 mb-4">
+            <div class="text-center">
+              <p class="text-sm text-gray-600 dark:text-gray-400">Views</p>
+              <p class="text-lg font-semibold text-gray-800 dark:text-white">
+                {{ campaign.metrics.views | number }}
+              </p>
+            </div>
+            <div class="text-center">
+              <p class="text-sm text-gray-600 dark:text-gray-400">Engagement</p>
+              <p class="text-lg font-semibold text-gray-800 dark:text-white">
+                {{ campaign.metrics.engagement }}%
+              </p>
+            </div>
+            <div class="text-center">
+              <p class="text-sm text-gray-600 dark:text-gray-400">Earnings</p>
+              <p class="text-lg font-semibold text-gray-800 dark:text-white">
+                Rs{{ campaign.metrics.earnings | number }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex gap-3">
+            <button class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+              View Details
+            </button>
+            <button class="flex-1 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 
+                          text-gray-800 dark:text-white font-medium py-2 px-4 rounded-lg transition-colors">
+              Submit Content
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- regular ads -->
+  <section class="regular-ads">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Available Opportunities</h2>
+    <div class="ads-grid">
+      <mat-card class="ad-card" *ngFor="let ad of regularAds" (click)="showAdDetails(ad, $event)">
+        
+        <img mat-card-image [src]="ad.imageUrl" [alt]="ad.title" loading="lazy">
+  
+        <div class="ad-content">
           <mat-card-header>
-            <div class="promoted-badge">PROMOTED</div>
-            <mat-card-title>{{ ad.title }}</mat-card-title>
-            <mat-card-subtitle>{{ ad.influencerName }}</mat-card-subtitle>
+            <div>
+              <mat-card-title class="ad-title">{{ ad.title }}</mat-card-title>
+              <mat-card-subtitle>{{ ad.influencerName }}</mat-card-subtitle>
+            </div>
           </mat-card-header>
-          <img mat-card-image [src]="ad.imageUrl" [alt]="ad.title" loading="lazy">
+  
           <mat-card-content>
-            <p>{{ ad.description }}</p>
+            <p class="ad-description">{{ ad.description }}</p>
+            <div class="ad-metrics">
+              <div class="metric-box">
+                <p class="metric-title">Spots Left</p>
+                <p class="metric-value">{{ ad.remainingSpots }}/{{ ad.totalSpots }}</p>
+              </div>
+              <div class="metric-box">
+                <p class="metric-title">Engagement</p>
+                <p class="metric-value">{{ ad.engagement }}%</p>
+              </div>
+            </div>
+  
             <div class="spots-info">
-              <span>Remaining Spots: {{ ad.remainingSpots }}/{{ ad.totalSpots }}</span>
               <mat-progress-bar
                 [mode]="'determinate'"
                 [value]="getRemainingSpotPercentage(ad)"
                 [color]="getProgressBarColor(getRemainingSpotPercentage(ad))">
               </mat-progress-bar>
             </div>
-            <div class="stats">
-              <span>{{ ad.followers | number }} followers</span>
-              <span>{{ ad.engagement }}% engagement</span>
-            </div>
           </mat-card-content>
-        </mat-card>
-      </div>
-    </div>
-  </section>
-
-  <!-- Regular Ads -->
-  <section class="regular-ads">
-    <h2>Available Opportunities</h2>
-    <div class="ads-grid">
-      <mat-card class="ad-card" *ngFor="let ad of regularAds" (click)="showAdDetails(ad, $event)">
-        <mat-card-header>
-          <mat-card-title>{{ ad.title }}</mat-card-title>
-          <mat-card-subtitle>{{ ad.influencerName }}</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image [src]="ad.imageUrl" [alt]="ad.title" loading="lazy">
-        <mat-card-content>
-          <p>{{ ad.description }}</p>
-          <div class="spots-info">
-            <span>Remaining Spots: {{ ad.remainingSpots }}/{{ ad.totalSpots }}</span>
-            <mat-progress-bar
-              [mode]="'determinate'"
-              [value]="getRemainingSpotPercentage(ad)"
-              [color]="getProgressBarColor(getRemainingSpotPercentage(ad))">
-            </mat-progress-bar>
-          </div>
-          <div class="stats">
-            <span>{{ ad.followers | number }} followers</span>
-            <span>{{ ad.engagement }}% engagement</span>
-          </div>
-        </mat-card-content>
+  
+          <button class="apply-btn">Apply Now</button>
+        </div>
+        
       </mat-card>
     </div>
   </section>
+  
+  
+  
 
-  <!-- Details Modal -->
-  <div class="details-modal" *ngIf="showDetails && selectedAd">
-    <div class="modal-content">
-      <button class="close-button" (click)="closeDetails()">×</button>
-      <div class="ad-details">
-        <img [src]="selectedAd.imageUrl" [alt]="selectedAd.title">
-        <h2>{{ selectedAd.title }}</h2>
-        <div class="influencer-info">
-          <h3>{{ selectedAd.influencerName }}</h3>
-          <div class="spots-info">
-            <span>Remaining Spots: {{ selectedAd.remainingSpots }}/{{ selectedAd.totalSpots }}</span>
-            <mat-progress-bar
-              [mode]="'determinate'"
-              [value]="getRemainingSpotPercentage(selectedAd)"
-              [color]="getProgressBarColor(getRemainingSpotPercentage(selectedAd))">
-            </mat-progress-bar>
-          </div>
-          <div class="stats">
-            <span>{{ selectedAd.followers | number }} followers</span>
-            <span>{{ selectedAd.engagement }}% engagement</span>
-          </div>
-        </div>
-        <p class="description">{{ selectedAd.description }}</p>
-        <div class="price" *ngIf="selectedAd.price">
-          <span>Starting from: ${{ selectedAd.price | number }}</span>
-        </div>
-        <div class="category">
-          <span>Category: {{ selectedAd.category }}</span>
-        </div>
-      </div>
-    </div>
-  </div>
 </div> 

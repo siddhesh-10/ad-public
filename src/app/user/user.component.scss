@@ -1,4 +1,11 @@
 :host {
   display: block;
-  padding: 20px;
-} 
+  min-height: 100vh;
+  background-color: #111827;
+}
+
+.material-icons {
+  font-size: 20px;
+}
+
+// Add any additional styles needed for consistency with brands component 

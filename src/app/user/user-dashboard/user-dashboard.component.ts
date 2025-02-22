@@ -55,7 +55,7 @@ export class UserDashboardComponent implements OnInit {
   earningsChartData: ChartData<'line'> = {
     labels: [],
     datasets: [{
-      label: 'Earnings ($)',
+      label: 'Earnings (Rs.)',
       data: [],
       borderColor: '#ff9a9e',
       tension: 0.4,

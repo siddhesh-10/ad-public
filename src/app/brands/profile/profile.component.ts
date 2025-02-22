@@ -30,7 +30,7 @@ export class ProfileComponent {
       name: 'Summer Glow Collection',
       status: 'Active',
       date: '2023-06-15',
-      budget: '$15,000',
+      budget: 'Rs.15,000',
       applications: 142,
       progress: 65
     },
@@ -38,7 +38,7 @@ export class ProfileComponent {
       name: 'Skincare Essentials',
       status: 'Completed',
       date: '2023-05-01',
-      budget: '$12,500',
+      budget: 'Rs.12,500',
       applications: 245,
       progress: 100
     },
@@ -46,7 +46,7 @@ export class ProfileComponent {
       name: 'Holiday Fragrance Launch',
       status: 'Pending',
       date: '2023-09-01',
-      budget: '$20,000',
+      budget: 'Rs.20,000',
       applications: 89,
       progress: 30
     }

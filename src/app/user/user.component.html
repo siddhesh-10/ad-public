@@ -1,8 +1,79 @@
-<mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
-  <mat-tab label="Home"></mat-tab>
-  <mat-tab label="My Ads"></mat-tab>
-  <mat-tab label="Dashboard"></mat-tab>
-  <mat-tab label="Profile"></mat-tab>
-</mat-tab-group>
+<div class="flex flex-col" [class.dark]="isDarkTheme">
+  <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%] bg-gray-800 dark:bg-gray-800 shadow-lg rounded-2xl px-6 py-3 flex items-center justify-between z-50">
+    <!-- Logo -->
+    <div class="text-white text-lg font-semibold flex items-center"> 
+      <img src="../../assets/images/image.png" class="w-9 h-9 mr-2 px-0.5 py-0.5 bg-white" alt=""> 
+      <span class="text-white text-lg font-semibold ml-2">ZUMPP</span>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="hidden md:flex space-x-2">
+      <button
+        *ngFor="let tab of tabs; let i = index"
+        (click)="onTabChange(i)"
+        [id]="'tab-' + i"
+        role="tab"
+        [attr.aria-selected]="selectedTabIndex === i"
+        class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center space-x-2"
+        [class.bg-gray-900]="selectedTabIndex === i"
+        [class.text-white]="selectedTabIndex === i"
+        [class.text-gray-300]="selectedTabIndex !== i"
+        [class.hover:bg-gray-700]="selectedTabIndex !== i"
+        [class.hover:text-white]="selectedTabIndex !== i"
+      >
+        <i class="material-icons text-base">{{ tab.icon }}</i>
+        <span>{{ tab.label }}</span>
+      </button>
+    </div>
 
-<router-outlet></router-outlet> 
+    <!-- Bottom Navbar for Mobile -->
+    <div class="md:hidden fixed bottom-0 left-0 w-full bg-gray-900 flex justify-around py-2">
+      <button
+        *ngFor="let tab of tabs; let i = index"
+        (click)="onTabChange(i)"
+        class="flex flex-col items-center text-gray-300 text-sm"
+        [class.text-white]="selectedTabIndex === i"
+      >
+        <i class="material-icons">{{ tab.icon }}</i>
+        <span class="text-xs">{{ tab.label }}</span>
+      </button>
+    </div>
+
+    <!-- Logout Button -->
+    <button class="bg-white text-gray-800 px-4 py-2 rounded-lg text-sm font-medium shadow-md transition-all hover:bg-gray-200" (click)="onLogout()">
+      Logout
+    </button>
+
+    <!-- Add Theme Toggle Button -->
+    <button (click)="toggleTheme()" 
+            class="ml-4 p-2 rounded-lg transition-colors hover:bg-gray-700 text-gray-300 hover:text-white">
+      <i class="material-icons">{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</i>
+    </button>
+  </nav>
+
+  <!-- Content panels -->
+  <div class="bg-gray-50 dark:bg-gray-900 min-h-screen pt-20 transition-colors">
+    <div *ngFor="let tab of tabs; let i = index" 
+         [id]="'panel-' + i"
+         role="tabpanel"
+         [attr.aria-labelledby]="'tab-' + i"
+         class="p-8 text-gray-300"
+         [class.hidden]="selectedTabIndex !== i">
+      
+      <div *ngIf="i === 0" class="max-w-7xl mx-auto">
+        <app-user-home></app-user-home>
+      </div>
+      <div *ngIf="i === 1" class="max-w-7xl mx-auto">
+        <app-my-ads></app-my-ads>
+      </div>
+      <div *ngIf="i === 2" class="max-w-7xl mx-auto">
+        <app-user-dashboard></app-user-dashboard>
+      </div>
+      <div *ngIf="i === 3" class="max-w-7xl mx-auto">
+        <app-user-profile></app-user-profile>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <router-outlet></router-outlet>  -->

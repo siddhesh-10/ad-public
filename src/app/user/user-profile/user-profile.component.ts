@@ -58,7 +58,7 @@ export class UserProfileComponent implements OnInit {
           phone: '+1234567890',
           avatar: 'assets/images/default-avatar.png',
           bio: 'Digital content creator passionate about lifestyle and tech',
-          location: 'New York, USA',
+          location: 'Mumbai, India',
           categories: ['Lifestyle', 'Technology', 'Fashion'],
           joinedDate: new Date('2023-01-15'),
           socialAccounts: [

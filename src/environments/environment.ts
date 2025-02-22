@@ -7,5 +7,7 @@ export const environment = {
         redirectSignIn: 'http://localhost:4200/home',
         redirectSignOut: 'http://localhost:4200/auth',
         googleClientId: '824786634927-rdli0bpl7pnu7cuisvl25r7607if5j3e.apps.googleusercontent.com'
-    }
+    },
+    production: false,
+    chatApiUrl: 'YOUR_AWS_LAMBDA_API_ENDPOINT'
 };

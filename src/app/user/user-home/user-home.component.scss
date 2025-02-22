@@ -1,269 +1,60 @@
 .user-home-container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-
   h2 {
-    margin-bottom: 20px;
-    color: #333;
-  }
-}
-
-// Promoted Ads Carousel
-.carousel-container {
-  overflow: hidden;
-  margin-bottom: 40px;
-  padding: 20px 0;
-}
-
-.carousel-track {
-  display: flex;
-  animation: scroll 40s linear infinite;
-  gap: 30px;
-  padding: 10px;
-
-  &:hover {
-    animation-play-state: paused;
-  }
-}
-
-.ad-card {
-  min-width: 500px;
-  margin: 10px;
-  transition: transform 0.3s ease;
-  cursor: pointer;
-  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
-  border: none;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    @apply text-2xl font-bold mb-6 text-gray-800 dark:text-white;
   }
 
-  &.promoted {
-    border: 2px solid #ffd700;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+  .opportunity-card, .ad-card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all 
+          hover:transform hover:scale-100 cursor-pointer;
   }
 
-  mat-card-header {
-    padding: 16px;
+  .opportunity-card img, .ad-card img {
+    @apply w-full h-48 object-cover rounded-lg;
   }
 
-  mat-card-content {
-    padding: 0 16px 16px;
+  .opportunity-card-title, .ad-title {
+    @apply text-xl font-semibold text-gray-800 dark:text-white mb-2;
   }
 
-  .promoted-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #ffd700;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
-    z-index: 1;
+  .opportunity-description, .ad-description {
+    @apply text-gray-600 dark:text-gray-300 text-sm;
   }
 
-  // Layout for larger screens
-  @media (min-width: 769px) {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
+  .apply-btn {
+    @apply w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 
+            text-white font-medium py-2.5 px-4 rounded-lg transition-all mt-4;
+  }
 
-    .mat-mdc-card-header {
-      padding-bottom: 0;
+  // Regular Ads Section Styling
+  .regular-ads {
+    @apply mt-12;
+
+    .ads-grid {
+      @apply grid grid-cols-1 md:grid-cols-2 gap-6;
     }
 
-    img {
-      width: 30%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 4px 0 0 4px;
-    }
+    .ad-card {
+      @apply flex flex-col md:flex-row items-center md:items-start p-4;
 
-    mat-card-content {
-      width: 70%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 16px;
-    }
-  }
-
-  // Layout for smaller screens
-  @media (max-width: 768px) {
-    min-width: 300px;
-
-    img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    mat-card-content {
-      padding: 16px;
-    }
-  }
-
-  .stats {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    font-size: 0.9em;
-    color: #444;
-    background: rgba(255, 255, 255, 0.3);
-    padding: 8px;
-    border-radius: 4px;
-  }
-}
-
-// Regular Ads Grid
-.ads-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-
-  .ad-card {
-    margin: 0;
-    width: 100%;
-  }
-}
-
-// Details Modal
-.details-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-
-  .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 800px;
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
-
-    .spots-info {
-      margin: 15px 0;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 15px;
-      border-radius: 8px;
-      
-      span {
-        color: #333;
-        font-weight: 500;
+      .ad-content {
+        @apply flex-1 p-4;
       }
-    }
-  }
 
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 5px 10px;
-    
-    &:hover {
-      background: #f5f5f5;
-      border-radius: 50%;
-    }
-  }
+      img {
+        @apply w-full md:w-48 h-40 object-cover rounded-lg;
+      }
 
-  .ad-details {
-    img {
-      width: 100%;
-      max-height: 400px;
-      object-fit: cover;
-      border-radius: 4px;
-    }
+      .mat-card-header {
+        @apply flex justify-between items-center w-full;
+      }
 
-    .influencer-info {
-      margin: 20px 0;
-      padding: 15px;
-      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
-      border-radius: 8px;
-    }
+      .spots-info {
+        @apply flex flex-col gap-2 mt-4;
+      }
 
-    .description {
-      line-height: 1.6;
-      margin: 20px 0;
-      padding: 15px;
-      background: rgba(255, 154, 158, 0.1);
-      border-radius: 8px;
-    }
-
-    .price, .category {
-      font-weight: bold;
-      margin: 10px 0;
-      padding: 10px;
-      background: rgba(255, 154, 158, 0.1);
-      border-radius: 4px;
-      display: inline-block;
-    }
-  }
-}
-
-// Animation for carousel
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-// Make carousel continuous by duplicating content
-.carousel-track {
-  &::after {
-    content: "";
-    display: block;
-    width: 100%;
-  }
-}
-
-// Responsive Design
-@media (max-width: 768px) {
-  .details-modal .modal-content {
-    width: 95%;
-    padding: 15px;
-  }
-
-  .carousel-container {
-    margin-bottom: 20px;
-  }
-}
-
-// Add this to your existing styles
-.spots-info {
-  margin: 15px 0;
-  
-  span {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 0.9em;
-    color: #666;
-  }
-
-  mat-progress-bar {
-    height: 8px;
-    border-radius: 4px;
-    ::ng-deep .mat-progress-bar-fill::after {
-      transition: transform 0.5s ease;
+      mat-progress-bar {
+        @apply rounded-lg;
+      }
     }
   }
 }

@@ -7,11 +7,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { MatSelect } from '@angular/material/select';
+import { ChatBubbleComponent } from '../../shared/components/chat-bubble/chat-bubble.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormMapping } from '../../shared/models/form-mapping.interface';
 
 @Component({
   selector: 'app-brands-home',
+  standalone: true,
   imports: [
-    CommonModule, MatLabel, MatIconModule,ReactiveFormsModule, MatFormFieldModule, MatRadioButton, MatOption, MatInputModule, MatSelect,MatRadioGroup
+    CommonModule,
+    HttpClientModule,
+    MatLabel, MatIconModule,ReactiveFormsModule, MatFormFieldModule, MatRadioButton, MatOption, MatInputModule, MatSelect,MatRadioGroup, ChatBubbleComponent
   ],
   templateUrl: './brands-home.component.html',
   styleUrls: ['./brands-home.component.scss'],
@@ -24,7 +30,7 @@ export class BrandsHomeComponent {
   constructor(private fb: FormBuilder) {
     this.adForm = this.fb.group({
       adName: ['', [Validators.required, Validators.minLength(3)]],
-      adRequirements: ['', Validators.required],
+      adDescription: ['', Validators.required],
       budget: ['', [Validators.required, Validators.min(100)]],
       selectionMode: ['self', Validators.required],
       startDate: ['', Validators.required],
@@ -94,5 +100,25 @@ export class BrandsHomeComponent {
 
   getFormControl(controlName: string) {
     return this.adForm.get(controlName);
+  }
+
+  updateFormFromChat(formData: Partial<FormMapping>) {
+    // Update only the fields that are provided in the response
+    Object.keys(formData).forEach(key => {
+      const control = this.adForm.get(key);
+      if (control) {
+        const value = formData[key as keyof FormMapping];
+        if (value !== undefined && value !== null) {
+          control.setValue(value);
+          control.markAsTouched(); // Mark the field as touched to trigger validation
+        }
+      }
+    });
+
+    // Optional: Scroll to the form
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
 }

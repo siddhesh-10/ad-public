@@ -1,0 +1,119 @@
+.chat-bubble-btn {
+  @apply bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg transition-all duration-300 flex items-center justify-center;
+}
+
+.chat-interface {
+  @apply bg-gray-800 rounded-xl shadow-2xl w-96 max-w-full transition-all duration-300 transform;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  @apply flex items-center justify-between p-4 border-b border-gray-700;
+  flex-shrink: 0;
+
+  .close-btn {
+    @apply text-gray-400 hover:text-white transition-colors;
+  }
+}
+
+.chat-messages {
+  @apply p-4 space-y-4;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-gray-700 rounded-full;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-gray-600 rounded-full;
+    &:hover {
+      @apply bg-gray-500;
+    }
+  }
+
+  .user-message {
+    @apply bg-blue-600 text-white max-w-[80%] rounded-lg px-4 py-2 break-words;
+  }
+
+  .system-message {
+    @apply bg-gray-700 text-gray-100 max-w-[80%] rounded-lg px-4 py-2 break-words;
+  }
+
+  .message-timestamp {
+    @apply text-xs opacity-70 mt-1 block;
+  }
+
+  .loading-indicator {
+    @apply flex justify-start;
+
+    .loading-dots {
+      @apply bg-gray-700 text-gray-100 rounded-lg px-4 py-2 flex space-x-2;
+
+      .dot {
+        @apply w-2 h-2 bg-gray-400 rounded-full animate-bounce;
+
+        &:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+
+        &:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+      }
+    }
+  }
+}
+
+.chat-input {
+  @apply p-4 border-t border-gray-700;
+  flex-shrink: 0;
+
+  .input-form {
+    @apply flex gap-2;
+
+    input {
+      @apply flex-1 bg-gray-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500;
+    }
+
+    button {
+      @apply bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg px-4 py-2 transition-colors;
+    }
+  }
+}
+
+.json-content {
+  .json-fields {
+    @apply space-y-2 mb-2;
+  }
+
+  .json-field {
+    @apply flex flex-col text-sm border-b border-gray-700/50 pb-2 last:border-0;
+
+    .field-name {
+      @apply text-gray-400 font-medium mb-1;
+    }
+
+    .field-value {
+      @apply text-white break-words;
+    }
+  }
+
+  .apply-button {
+    @apply mt-3 w-full flex items-center justify-center gap-2 
+           bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 
+           rounded-lg transition-colors text-sm font-medium;
+
+    i {
+      @apply text-base;
+    }
+  }
+} 

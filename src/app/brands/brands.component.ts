@@ -1,5 +1,7 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { NgFor, NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router, RouterOutlet } from '@angular/router';
@@ -8,12 +10,26 @@ import { YourAdsComponent } from "./your-ads/your-ads.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { CognitoService } from "../shared/services/cognito.service";
 import { ChangeDetectorRef } from '@angular/core';
+import { ChatBubbleComponent } from '../shared/components/chat-bubble/chat-bubble.component';
 
 @Component({
   selector: 'app-brands',
-  imports: [RouterOutlet, ReactiveFormsModule, MatTabsModule, NgFor,NgIf, BrandsHomeComponent, YourAdsComponent, ProfileComponent],
   templateUrl: './brands.component.html',
-  styleUrl: './brands.component.scss'
+  styleUrls: ['./brands.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    ChatBubbleComponent,
+    RouterOutlet,
+    ReactiveFormsModule,
+    MatTabsModule,
+    NgFor,
+    NgIf,
+    BrandsHomeComponent,
+    YourAdsComponent,
+    ProfileComponent
+  ]
 })
 export class BrandsComponent {
   selectedTabIndex: number = 0;

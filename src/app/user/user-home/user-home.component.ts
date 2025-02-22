@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { InfluencerAd } from '../../shared/models/influencer-ad.model';
+import { ThemeService } from '../../shared/services/theme.service';
 
 @Component({
   selector: 'app-user-home',
@@ -19,7 +20,37 @@ export class UserHomeComponent implements OnInit {
   selectedAd: InfluencerAd | null = null;
   showDetails = false;
 
-  constructor(private router: Router) {}
+  featuredOpportunities = [
+    {
+      title: 'Summer Fashion Collection',
+      description: 'Showcase our new summer collection to your audience',
+      brandName: 'Fashion Brand',
+      brandLogo: 'assets/brand-logo.png',
+      coverImage: 'assets/campaign-cover.jpg',
+      category: 'Fashion',
+      budget: 25000,
+      duration: 30,
+      minFollowers: 10000,
+      minEngagement: 3.5
+    },
+    // Add more opportunities...
+  ];
+
+  activeCampaigns = [
+    {
+      title: 'Tech Gadget Review',
+      status: 'In Progress',
+      progress: 65,
+      metrics: {
+        views: 150000,
+        engagement: 4.8,
+        earnings: 1200
+      }
+    },
+    // Add more campaigns...
+  ];
+
+  constructor(private router: Router, private themeService: ThemeService) {}
 
   @HostListener('document:click', ['$event'])
   clickOutside(event: Event) {
@@ -129,5 +160,17 @@ export class UserHomeComponent implements OnInit {
     if (percentage <= 20) return 'warn';
     if (percentage <= 50) return 'accent';
     return 'primary';
+  }
+
+  getStatusClass(status: string): string {
+    const baseClasses = 'px-3 py-1 rounded-full text-sm font-medium';
+    switch (status.toLowerCase()) {
+      case 'in progress':
+        return `${baseClasses} bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200`;
+      case 'completed':
+        return `${baseClasses} bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200`;
+      default:
+        return `${baseClasses} bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200`;
+    }
   }
 } 
