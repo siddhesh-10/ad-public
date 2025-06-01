@@ -1,3 +1,9 @@
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 import json
@@ -10,7 +16,7 @@ app = FastAPI()
 # Add CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # For demo purposes; in production, specify  frontend URL(s)
+    allow_origins=["*","http://localhost:4200"],  # For demo purposes; in production, specify  frontend URL(s)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

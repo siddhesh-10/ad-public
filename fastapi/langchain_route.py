@@ -5,13 +5,16 @@ from langchain.chains import LLMChain
 import os
 import re
 
-
+# Get API key from environment variables
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    raise ValueError("OPENAI_API_KEY environment variable is not set")
 
 # --- Define System Prompts ---
 
 # 1. Intent Classification Prompt
 intent_prompt_template = """
-You are an intent classifier. Your sole task is to determine if the user’s input is intended for creating or modifying ad form fields for an advertising campaign.
+You are an intent classifier. Your sole task is to determine if the user's input is intended for creating or modifying ad form fields for an advertising campaign.
 Answer only with one of the following tokens:
 - "ad_form" — if the input is clearly about generating or modifying ad form content.
 - "non_ad_form" — if the input is unrelated.
@@ -137,9 +140,18 @@ def extract_json(text):
     return text.strip()
 
 # --- Initialize the LLM ---
-# Make sure to set your API key in your environment or configure the OpenAI package accordingly.
-llm = ChatOpenAI(base_url="https://generativelanguage.googleapis.com/v1beta/openai/",model_name="gemini-2.0-flash", temperature=0)
-llmForm = ChatOpenAI(base_url="https://generativelanguage.googleapis.com/v1beta/openai/",model_name="gemini-2.0-flash", temperature=0.2)
+llm = ChatOpenAI(
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    model_name="gemini-2.0-flash",
+    temperature=0,
+    api_key=api_key
+)
+llmForm = ChatOpenAI(
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    model_name="gemini-2.0-flash",
+    temperature=0.2,
+    api_key=api_key
+)
 
 # --- Create Chains ---
 # intent_chain = LLMChain(llm=llm, prompt=intent_prompt)

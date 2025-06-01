@@ -58,7 +58,7 @@ export const routes: Routes = [
   {
     path: 'brands',
     component: BrandsComponent,
-    canActivate: [authGuard], // Apply authGuard at parent level
+    // canActivate: [authGuard], // Apply authGuard at parent level
     //data: { expectedRoles: ['brand'] },
     children: [
       { path: 'brand-home', component: BrandsHomeComponent },
